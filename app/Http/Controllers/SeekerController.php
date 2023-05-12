@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Seeker;
+use App\Models\Seeker_Duties;
 use Illuminate\Http\Request;
 
 class SeekerController extends Controller
@@ -12,7 +13,8 @@ class SeekerController extends Controller
      */
     public function index()
     {
-        //
+        $duties = Seeker_Duties::get();
+        return $duties;
     }
 
     /**

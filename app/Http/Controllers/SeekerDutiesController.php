@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Applicant_Job_Duties;
+use App\Models\SeekerDuties;
 use Illuminate\Http\Request;
 
-class ApplicantJobDutiesController extends Controller
+class SeekerDutiesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $duties = SeekerDuties::with('job', 'duties', 'resumes', 'experiences')->get();
+        return $duties;
     }
 
     /**
@@ -34,7 +35,7 @@ class ApplicantJobDutiesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Applicant_Job_Duties $applicant_Job_Duties)
+    public function show(SeekerDuties $Seekerdutie)
     {
         //
     }
@@ -42,7 +43,7 @@ class ApplicantJobDutiesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Applicant_Job_Duties $applicant_Job_Duties)
+    public function edit(SeekerDuties $Seekerdutie)
     {
         //
     }
@@ -50,7 +51,7 @@ class ApplicantJobDutiesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Applicant_Job_Duties $applicant_Job_Duties)
+    public function update(Request $request, SeekerDuties $Seekerdutie)
     {
         //
     }
@@ -58,7 +59,7 @@ class ApplicantJobDutiesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Applicant_Job_Duties $applicant_Job_Duties)
+    public function destroy(SeekerDuties $Seekerdutie)
     {
         //
     }
