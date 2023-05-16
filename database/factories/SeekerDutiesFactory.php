@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class Seeker_DutiesFactory extends Factory
+class SeekerDutiesFactory extends Factory
 {
     /**
      * Define the model's default state.

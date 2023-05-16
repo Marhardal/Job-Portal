@@ -12,7 +12,7 @@ class ReferralController extends Controller
      */
     public function index()
     {
-        //
+        return Referral::with('resumes')->get();
     }
 
     /**

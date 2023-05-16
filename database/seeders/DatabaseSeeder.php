@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Seeker_Duties;
+use App\Models\SeekerDuties;
 use App\Models\Duties;
 use App\Models\Education;
 use App\Models\Experience;
@@ -23,16 +23,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Seeker::factory(10)->create();
-        Job::factory(10)->create();
-        Duties::factory(20)->create();
-        Experience::factory(10)->create();
-        Qualification::factory(20)->create();
-        Resume::factory(10)->create();
-        Seeker_Duties::factory(10)->create();
-        Skill::factory(30)->create();
-        Referral::factory(30)->create();
-        Education::factory(20)->create();
+        SeekerDuties::factory(5)->create();
+        Skill::factory(5)->create();
+        Referral::factory(5)->create();
+        Education::factory(5)->create();
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

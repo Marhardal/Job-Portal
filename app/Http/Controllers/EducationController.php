@@ -12,7 +12,7 @@ class EducationController extends Controller
      */
     public function index()
     {
-        //
+        return Education::with('resumes', 'qualifications')->get();
     }
 
     /**
