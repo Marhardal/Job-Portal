@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Qualification extends Model
 {
     use HasFactory;
+
+    /**
+     * Get the Education associated with the Qualification
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function Education()
+    {
+        return $this->hasOne(Education::class, '', '');
+    }
 }

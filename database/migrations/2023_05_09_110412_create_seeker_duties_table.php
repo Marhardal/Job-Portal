@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('applicant__job__duties', function (Blueprint $table) {
+        Schema::create('seeker_duties', function (Blueprint $table) {
             $table->id();
             $table->foreignId('resume_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('job_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
