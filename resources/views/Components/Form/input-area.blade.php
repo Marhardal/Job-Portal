@@ -1,10 +1,7 @@
 @props(['name', 'placeholder', 'type'=>'text'])
 <div class="">
-    <div class="mt-2">
-        {{-- <input type="{{ $type }}" name="{{ $name }}" id="Username" class="block w-full rounded border py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6 pl-2" placeholder="{{ $placeholder }}"> --}}
-        <div class="relative">
-            <input type="{{ $type }}" class="border-b" name="{{ $name }}" placeholder="{{ $placeholder }}" >
-            <label for="{{ $name }}" class="absolute block text-sm font-medium leading-6 text-gray-900">{{ ucwords($name) }}</label>
-        </div>
+    <div class="relative">
+        <input type="{{ $type }}" name="{{ $name }}" class="w-full border-b-2 border-gray-300 py-1.5 focus:border-blue-600 px-2 focus:outline-none transition-colors peer placeholder-transparent" placeholder="{{ ucwords($placeholder) }}"id="">
+        <label for="{{ $name }}" class="absolute left-0 text-gray-500 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-top-3.5 peer-focus:text-gray-500 peer-focus:text-sm transition-all ">{{ ucwords($placeholder) }}</label>
     </div>
 </div>

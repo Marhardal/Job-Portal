@@ -1,5 +1,5 @@
 <div class="bg-blue-500">
-    <div class="flex justify-between items-center px-6 p-6 container mx-auto text-white">
+    <div class="flex justify-between items-center px-6 p-4 container mx-auto text-white">
         <div class="text-lg font-bold px-6">HireNet</div>
         <input type="checkbox" name="peer-hamburger" id="hamburger" class="peer hidden">
         <label for="hamburger" class="peer-checked:hamburger block relative cursor-pointer border-2 border-white lg:hidden peer-checked:border-2 peer-checked:border-white p-3 rounded-md transition-all">
