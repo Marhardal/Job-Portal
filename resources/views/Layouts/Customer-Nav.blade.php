@@ -14,7 +14,12 @@
                 <a href="#">Services</a>
                 <a href="#">Contact</a>
                 <a href="#">Jobs</a>
-                <a href="{{ URL::to('choose') }}" class="bg-green-300 text-black rounded-md px-4 py-2">Get Started</a>
+                @guest
+                    <x-anchor href="{{ URL::to('choose') }}">Get Started</x-anchor>
+                @endguest
+                @auth
+                    <a href="{{ URL::to('resume') }}">Resume</a>
+                @endauth
             </div>
         </div>
     </div>

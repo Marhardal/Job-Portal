@@ -12,7 +12,8 @@ class ResumeController extends Controller
      */
     public function index()
     {
-        return Resume::first();
+        // dd(Resume::find(auth()->user('id')));
+        return view('customers.resume')->with(['resume'=>Resume::find(auth()->user('id'))]);
     }
 
     /**
@@ -20,7 +21,7 @@ class ResumeController extends Controller
      */
     public function create()
     {
-        //
+        return view('customer.resume.create');
     }
 
     /**
