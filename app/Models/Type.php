@@ -14,6 +14,10 @@ class Type extends Model
     *
     * @return \Illuminate\Database\Eloquent\Relations\HasOne
     */
+     * Get the User associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function User()
     {
         return $this->hasOne(User::class);
