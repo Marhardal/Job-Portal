@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('applicant_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string("summary");
+            $table->unsignedInteger('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->text("summary");
             $table->timestamps();
         });
     }

@@ -17,12 +17,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 
+    protected $with=['type', ];
+
+     public function setPasswordAttribute($password)
+     {
+        $this->attributes['password'] = bcrypt($password);
+     }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -32,6 +33,18 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+
+    /**
+     * Get the Type that owns the Type
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+
+     public function Type()
+     {
+         return $this->belongsTo(Type::class);
+     }
 
     /**
      * The attributes that should be cast.
