@@ -9,7 +9,7 @@ class Resume extends Model
 {
     use HasFactory;
 
-    protected $with = ['seeker', 'SeekerDuties', 'education', 'referral', 'skill'];
+    protected $with = ['seeker', 'SeekerDuties', 'education', 'referral', 'skill',];
 
     /**
      * Get the Seeker that owns the Resume
@@ -30,7 +30,7 @@ class Resume extends Model
     {
         return $this->belongsTo(SeekerDuties::class, 'id');
     }
-    
+
     /**
      * Get all of the Education for the Resume
      *
@@ -59,5 +59,15 @@ class Resume extends Model
     public function Skill()
     {
         return $this->hasOne(Skill::class, 'id');
+    }
+
+    /**
+     * Get all of the experience for the Resume
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function experience()
+    {
+        return $this->hasManyThrough(Experience::class, SeekerDuties::class, );
     }
 }

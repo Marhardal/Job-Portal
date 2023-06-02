@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Experience;
+use App\Models\SeekerDuties;
 use Illuminate\Http\Request;
 
 class ExperienceController extends Controller
@@ -20,7 +22,7 @@ class ExperienceController extends Controller
      */
     public function create()
     {
-        //
+        return view("customers.resume.experience");
     }
 
     /**
@@ -28,7 +30,21 @@ class ExperienceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $values = $request->validate([
+            'start_date'=>['required', 'before_or_equal:'.Carbon::today()->subMonths(3)->format('Y-m')],
+            'leave_date'=>['required', 'date'],
+            'employer'=>['required', ],
+            'city'=>['required', 'string'],
+            'country'=>['required', 'string']
+        ]);
+        $experience=Experience::create($values);
+        if ($experience) {
+            session()->put('experience_id', $experience->id);
+            return redirect('resume/jobduties');
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**

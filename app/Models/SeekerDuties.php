@@ -15,6 +15,9 @@ class SeekerDuties extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
+
+    protected $with = ['job', 'resumes', 'duties', 'experience'];
+
     public function Job()
     {
         return $this->belongsTo(Job::class);
