@@ -9,7 +9,6 @@ class Type extends Model
 {
     use HasFactory;
 
-     /**
      * Get the User associated with the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
