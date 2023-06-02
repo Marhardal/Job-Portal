@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('surname');
             $table->string('username')->unique();
+            $table->date('date_of_birth');
+            $table->string('gender');
+            $table->string('phone');
             $table->unsignedInteger('type_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
