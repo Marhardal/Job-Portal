@@ -13,7 +13,17 @@ class ResumeController extends Controller
      */
     public function index()
     {
-        // dd(Resume::all());
+        // $resume=Resume::find(auth()->user()->id);
+        // if($resume){
+        //     foreach ($resume->seekerduties as $seekerduty) {
+        //     dd($seekerduty);
+        //     }
+        // }
+        // else{
+        //     echo "error";
+        // }
+
+        // dd(Resume::find(auth()->user()->id)->seekerduties->duties->name);
         return view('customers.resume')->with(['resume'=>Resume::find(auth()->user()->id)]);
     }
 

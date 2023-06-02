@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Skill;
+use App\Models\Resume;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SkillController extends Controller
 {
@@ -20,7 +22,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.resume.createSkill');
     }
 
     /**
@@ -28,7 +30,19 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $values = $request->validate([
+            'name' => ['required'],
+            'description' => ['required']
+        ]);
+
+        $values['resume_id'] = Resume::find(auth()->user()->id)->id;
+        if (Skill::create($values)) {
+            return redirect('resume');
+            Alert::success('Success', 'Skill Created');
+        }else {
+            return redirect()->back();
+            Alert::error("Failed", "Skill not Created.");
+        }
     }
 
     /**

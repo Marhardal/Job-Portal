@@ -31,6 +31,9 @@ class DatabaseSeeder extends Seeder
 
         Job::factory(50)->create();
         Duties::factory(100)->create();
+        Skill::factory(30)->create();
+        Qualification::factory(20)->create();
+
         Type::create([
             'role' => 'Seeker',
         ]);
@@ -38,7 +41,7 @@ class DatabaseSeeder extends Seeder
         Type::create([
             'role' => 'Admin',
         ]);
-        
+
         Type::create([
             'role' => 'recruiter',
         ]);

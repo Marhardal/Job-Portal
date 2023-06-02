@@ -18,7 +18,6 @@ class SkillFactory extends Factory
     public function definition(): array
     {
         return [
-            'resume_id'=>Resume::factory(),
             'name'=>$this->faker->name(),
             'description'=>$this->faker->paragraph()
         ];
