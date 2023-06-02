@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -84,5 +85,20 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function login(Request $request)
+    {
+        $values=$request->validate([
+            'username'=>['required', 'min:6'],
+            'password'=>['required', Password::min(8)->mixedCase()->numbers()->symbols()]
+        ]);
+
+        if (auth()->attempt($values)) {
+            Alert::success('Success', 'Logged-in Successfully.');
+            return redirect('vacancies');
+        }
+
+        throw ValidationException::withMessages(['username' => 'Your provided credentials could not be verified.']);
     }
 }

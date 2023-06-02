@@ -15,7 +15,7 @@
                 <a href="#">Contact</a>
                 <a href="#">Jobs</a>
                 @guest
-                    <x-anchor href="{{ URL::to('choose') }}">Get Started</x-anchor>
+                    <x-button-link class="bg-green-300 hover:bg-green-500" href="{{ URL::to('choose') }}">Get Started</x-button-link>
                 @endguest
                 @auth
                     <a href="{{ URL::to('resume') }}">Resume</a>

@@ -2,12 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+use function PHPSTORM_META\type;
+
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Duties>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Type>
  */
-class DutiesFactory extends Factory
+class TypeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +20,6 @@ class DutiesFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'=>$this->faker->realText(),
         ];
     }
 }

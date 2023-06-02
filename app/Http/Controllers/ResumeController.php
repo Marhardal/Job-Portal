@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Resume;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ResumeController extends Controller
 {
@@ -12,8 +13,8 @@ class ResumeController extends Controller
      */
     public function index()
     {
-        // dd(Resume::find(auth()->user('id')));
-        return view('customers.resume')->with(['resume'=>Resume::find(auth()->user('id'))]);
+        // dd(Resume::all());
+        return view('customers.resume')->with(['resume'=>Resume::find(auth()->user()->id)]);
     }
 
     /**
@@ -21,7 +22,7 @@ class ResumeController extends Controller
      */
     public function create()
     {
-        return view('customer.resume.create');
+        return view('customers.resume.create');
     }
 
     /**
@@ -29,7 +30,21 @@ class ResumeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd(auth()->user()->id);
+        $values = $request->validate([
+            'summary'=>['required', 'min:200'],
+        ]);
+
+        $values['user_id']=auth()->user()->id;
+        $resume=Resume::create($values);
+        if ($resume) {
+            session()->put("resume_id", $resume->id);
+            return redirect('resume/experience');
+            Alert::success('Success', 'Professional Summary Created');
+        }else {
+            return redirect()->back();
+            Alert::error("Failed", "Professional Summary not Created.");
+        }
     }
 
     /**

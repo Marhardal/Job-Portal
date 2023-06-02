@@ -14,6 +14,7 @@ use App\Models\Referral;
 use App\Models\Resume;
 use App\Models\Seeker;
 use App\Models\Skill;
+use App\Models\Type;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,10 +24,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        SeekerDuties::factory(5)->create();
-        Skill::factory(5)->create();
-        Referral::factory(5)->create();
-        Education::factory(5)->create();
+        // SeekerDuties::factory(5)->create();
+        // Skill::factory(5)->create();
+        // Referral::factory(5)->create();
+        // Education::factory(5)->create();
+
+        Job::factory(50)->create();
+        Duties::factory(100)->create();
+        Type::create([
+            'role' => 'Seeker',
+        ]);
+
+        Type::create([
+            'role' => 'Admin',
+        ]);
+        
+        Type::create([
+            'role' => 'recruiter',
+        ]);
 
         // \App\Models\User::factory(10)->create();
 

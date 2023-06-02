@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-     protected $guarded = [];
+    protected $with=['type', ];
 
      public function setPasswordAttribute($password)
      {
@@ -33,6 +33,18 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+
+    /**
+     * Get the Type that owns the Type
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+
+     public function Type()
+     {
+         return $this->belongsTo(Type::class);
+     }
 
     /**
      * The attributes that should be cast.

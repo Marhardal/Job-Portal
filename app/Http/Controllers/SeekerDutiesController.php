@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Job;
+use App\Models\Duties;
+use App\Models\Experience;
 use App\Models\SeekerDuties;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SeekerDutiesController extends Controller
 {
@@ -21,7 +27,7 @@ class SeekerDutiesController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.resume.jobduties')->with(['jobs' => Job::all(), 'duties' => Duties::all()]);
     }
 
     /**
@@ -29,7 +35,22 @@ class SeekerDutiesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd( Experience::latest()->first()->id);
+        $values = $request->validate([
+            'job_id' => ['required', Rule::exists('jobs', 'id')],
+            'duty_id' => ['required', Rule::exists('duties', 'id')],
+        ]);
+
+        $values['experience_id'] = Experience::latest()->first()->id;
+        $values['resume_id'] = session('resume_id');
+
+        if (SeekerDuties::create($values)) {
+            // Alert::question("System", "Do you want to add another experience or Next");
+            return redirect("resume");
+        } else {
+            return redirect()->back();
+        }
+
     }
 
     /**

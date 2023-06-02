@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date("start_date");
             $table->date("leave_date");
-            $table->string("organisation_name");
+            $table->string("employer");
+            $table->string("City");
+            $table->string("country");
+            $table->string("status")->nullable();
             $table->timestamps();
         });
     }

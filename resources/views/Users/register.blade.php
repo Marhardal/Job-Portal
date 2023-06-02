@@ -28,7 +28,7 @@
                     <x-form.input-area name="password_confirmation" type="password" placeholder="Confirm your password." />
                     <x-form.input-area name="type_id" name="1" placeholder="" class="hidden"/>
                     <div class="col-span-2 mx-auto">
-                        <x-form.button value="Register" name="register" />
+                        <x-form.button value="Register" name="register" class="bg-blue-500 hover:bg-blue-400 transition-colors"/>
                     </div>
                 </div>
             </form>
