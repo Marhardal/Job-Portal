@@ -9,14 +9,13 @@ class Type extends Model
 {
     use HasFactory;
 
-     /**
-     * Get the User associated with the User
+    /**
+     * Get the user associated with the Type
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
-    */
+     */
     public function user()
     {
         return $this->hasOne(User::class);
     }
-
 }
