@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('job_title');
             $table->string('email');
             $table->string('phone_number');
-            $table->string('company_name');
-            $table->string('company_location');
+            $table->string('employer');
+            $table->string('city');
+            $table->string('country');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class SeekerDuties extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
 
-    protected $with = ['job', 'resumes', 'duties', 'experience'];
+    // protected $with = ['job', 'resumes', 'duties', 'experience'];
 
     public function Job()
     {
@@ -30,7 +30,7 @@ class SeekerDuties extends Model
      */
     public function Duties()
     {
-        return $this->hasMany(Duties::class, 'id');
+        return $this->belongsTo(Duties::class, 'duty_id', 'id');
     }
 
     /**
@@ -38,9 +38,9 @@ class SeekerDuties extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Resumes()
+    public function Resume()
     {
-        return $this->hasMany(Resume::class, 'id');
+        return $this->belongsTo(Resume::class, 'id');
     }
 
     /**

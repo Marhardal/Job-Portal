@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Resume;
 use App\Models\Education;
+use App\Models\Qualification;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EducationController extends Controller
 {
@@ -20,7 +24,7 @@ class EducationController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.resume.createEducation')->with(['qualification'=>Qualification::all()]);
     }
 
     /**
@@ -28,7 +32,21 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $values = $request->validate([
+            'qualification_id' => ['required', Rule::exists('qualifications', 'id')],
+            'school' => ['required'],
+            'start_date' => ['required'],
+            'graduation_date' => ['required'],
+        ]);
+
+        $values['resume_id'] = Resume::find(auth()->user()->id)->id;
+        if (Education::create($values)) {
+            return redirect('resume');
+            Alert::success('Success', 'Education Created');
+        } else {
+            return redirect()->back();
+            Alert::error("Failed", "Education not Created.");
+        }
     }
 
     /**

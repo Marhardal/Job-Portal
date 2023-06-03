@@ -9,7 +9,7 @@ class Resume extends Model
 {
     use HasFactory;
 
-    protected $with = ['seeker', 'SeekerDuties', 'education', 'referral', 'skill',];
+    protected $with = ['seeker', 'SeekerDuties', 'education', 'referral', 'skill'];
 
     /**
      * Get the Seeker that owns the Resume
@@ -28,7 +28,7 @@ class Resume extends Model
      */
     public function SeekerDuties()
     {
-        return $this->belongsTo(SeekerDuties::class, 'id');
+        return $this->hasOne(SeekerDuties::class, 'id');
     }
 
     /**

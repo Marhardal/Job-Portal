@@ -17,6 +17,6 @@ class Duties extends Model
      */
     public function SeekerDuties()
     {
-        return $this->belongsTo(Seeker::class, 'id', 'duties_id');
+        return $this->hasMany(SeekerDuties::class);
     }
 }

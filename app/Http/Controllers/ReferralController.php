@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Resume;
 use App\Models\Referral;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ReferralController extends Controller
 {
@@ -20,7 +22,7 @@ class ReferralController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.resume.createReferral');
     }
 
     /**
@@ -28,7 +30,25 @@ class ReferralController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $values = $request->validate([
+            'first_name' => ['required'],
+            'Surname' => ['required'],
+            'job_title' => ['required'],
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'employer' => ['required'],
+            'city' => ['required'],
+            'country' => ['required'],
+        ]);
+
+        $values['resume_id'] = Resume::find(auth()->user()->id)->id;
+        if (Referral::create($values)) {
+            return redirect('resume');
+            Alert::success('Success', 'Referral Created');
+        }else {
+            return redirect()->back();
+            Alert::error("Failed", "Referral not Created.");
+        }
     }
 
     /**

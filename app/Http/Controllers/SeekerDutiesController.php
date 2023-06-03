@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Job;
 use App\Models\Duties;
+use App\Models\Resume;
 use App\Models\Experience;
 use App\Models\SeekerDuties;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class SeekerDutiesController extends Controller
         ]);
 
         $values['experience_id'] = Experience::latest()->first()->id;
-        $values['resume_id'] = session('resume_id');
+        $values['resume_id'] = Resume::find(auth()->user()->id)->id;
 
         if (SeekerDuties::create($values)) {
             // Alert::question("System", "Do you want to add another experience or Next");
