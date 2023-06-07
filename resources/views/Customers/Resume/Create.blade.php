@@ -18,8 +18,8 @@
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <x-form.button value="Next" class="inline-flex w-full justify-center bg-red-600 hover:bg-red-500 sm:ml-3 sm:w-auto"/>
-                            <x-button-link href="{{ URL::to('resume') }}" class="mt-3 inline-flex w-full justify-center bg-white  ring-1 ring-inset ring-gray-300 sm:mt-3 sm:w-auto">Cancel</x-button-link>
+                            <x-form.button value="Next" class="inline-flex w-full justify-center bg-red-600 hover:bg-red-500 sm:ml-3 sm:w-auto h-10 sm:mt-3"/>
+                            <x-button-link href="{{ URL::to('resume') }}" class="py-2 px-4 inline-flex w-full justify-center bg-white  ring-1 ring-inset ring-gray-300 sm:mt-3 sm:w-auto">Cancel</x-button-link>
                         </div>
                     </div>
                 </form>

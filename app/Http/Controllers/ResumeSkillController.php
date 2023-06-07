@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Skill;
 use App\Models\Resume;
+use App\Models\ResumeSkill;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Exists;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class SkillController extends Controller
+class ResumeSkillController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Skill::with('resumes')->get();
+        //
     }
 
     /**
@@ -22,7 +25,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        // return view('customers.resume.createSkill')->with(['skills'=>Skill::all()]);
+        return view('customers.resume.createSkill')->with(['skills' => Skill::all()]);
     }
 
     /**
@@ -31,15 +34,14 @@ class SkillController extends Controller
     public function store(Request $request)
     {
         $values = $request->validate([
-            'name' => ['required'],
-            'description' => ['required']
+            'skill_id' => ['required', Rule::exists('skills', 'id')]
         ]);
 
         $values['resume_id'] = Resume::find(auth()->user()->id)->id;
-        if (Skill::create($values)) {
+        if (ResumeSkill::create($values)) {
             return redirect('resume');
             Alert::success('Success', 'Skill Created');
-        }else {
+        } else {
             return redirect()->back();
             Alert::error("Failed", "Skill not Created.");
         }
@@ -48,7 +50,7 @@ class SkillController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Skill $skill)
+    public function show(ResumeSkill $resumeSkill)
     {
         //
     }
@@ -56,7 +58,7 @@ class SkillController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Skill $skill)
+    public function edit(ResumeSkill $resumeSkill)
     {
         //
     }
@@ -64,7 +66,7 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Skill $skill)
+    public function update(Request $request, ResumeSkill $resumeSkill)
     {
         //
     }
@@ -72,7 +74,7 @@ class SkillController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Skill $skill)
+    public function destroy(ResumeSkill $resumeSkill)
     {
         //
     }

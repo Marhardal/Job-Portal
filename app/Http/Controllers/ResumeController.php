@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Experience;
+use App\Models\Referral;
 use App\Models\Resume;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -13,7 +16,10 @@ class ResumeController extends Controller
      */
     public function index()
     {
-        // dd(Resume::all());
+        // $resume = Resume::find(auth()->user()->id);
+        // foreach (Experience::first()->duties as $key => $value) {
+        //     dd($value->count());
+        // }
         return view('customers.resume')->with(['resume'=>Resume::find(auth()->user()->id)]);
     }
 
@@ -32,16 +38,16 @@ class ResumeController extends Controller
     {
         // dd(auth()->user()->id);
         $values = $request->validate([
-            'summary'=>['required', 'min:200'],
+            'summary' => ['required', 'min:200'],
         ]);
 
-        $values['user_id']=auth()->user()->id;
-        $resume=Resume::create($values);
+        $values['user_id'] = auth()->user()->id;
+        $resume = Resume::create($values);
         if ($resume) {
             session()->put("resume_id", $resume->id);
             return redirect('resume/experience');
             Alert::success('Success', 'Professional Summary Created');
-        }else {
+        } else {
             return redirect()->back();
             Alert::error("Failed", "Professional Summary not Created.");
         }

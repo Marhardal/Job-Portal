@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Qualification>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ResumeSkill>
  */
-class QualificationFactory extends Factory
+class ResumeSkillFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class QualificationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'=>$this->faker->streetName(),
-            'description'=>$this->faker->paragraph(),
+            
         ];
     }
 }

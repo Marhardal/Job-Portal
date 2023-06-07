@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Duties;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class SeekerDuties extends Model
+class ResumeSkill extends Model
 {
     use HasFactory;
-
 }

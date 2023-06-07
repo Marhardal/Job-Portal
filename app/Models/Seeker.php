@@ -16,6 +16,6 @@ class Seeker extends Model
      */
     public function resume()
     {
-        return $this->hasOne(Resume::class, 'seeker_id', 'id');
+        return $this->belongsTo(Resume::class, 'user_id', 'id');
     }
 }

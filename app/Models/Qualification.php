@@ -10,12 +10,17 @@ class Qualification extends Model
     use HasFactory;
 
     /**
-     * Get the Education associated with the Qualification
+     * Get the Resume associated with the Qualification
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function Education()
+    /**
+     * The Resume that belong to the Qualification
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function Resume()
     {
-        return $this->hasOne(Education::class, '', '');
+        return $this->belongsToMany(Resume::class, 'Education', 'education', 'qualification_id', 'resume_id', 'id');
     }
 }
