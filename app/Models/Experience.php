@@ -9,24 +9,35 @@ class Experience extends Model
 {
     use HasFactory;
 
+    protected $with = ["job", "resume", "duties"];
 
     /**
-     * Get the SeekerDuties that owns the Experience
+     * Get the Resume that owns the Experience
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function SeekerDuties()
+    public function Resume()
     {
-        return $this->belongsTo(SeekerDuties::class, 'experience_id', '');
+        return $this->belongsTo(Resume::class);
     }
 
     /**
-     * Get all of the Resume for the Experience
+     * The Duties that belong to the Experience
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function Resume()
+    public function duties()
     {
-        return $this->hasManyThrough(Resume::class, SeekerDuties::class);
+        return $this->belongsToMany(Duties::class, 'duty_experiences', 'experience_id', 'duty_id', 'id');
+    }
+
+    /**
+     * Get the Job that owns the Experience
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function Job()
+    {
+        return $this->belongsTo(Job::class, 'job_id');
     }
 }
