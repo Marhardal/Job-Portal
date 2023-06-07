@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Resume;
 use App\Models\Experience;
+use App\Models\Job;
 use App\Models\SeekerDuties;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ExperienceController extends Controller
 {
@@ -22,7 +25,7 @@ class ExperienceController extends Controller
      */
     public function create()
     {
-        return view("customers.resume.experience");
+        return view("customers.resume.experience")->with('jobs', Job::all());
     }
 
     /**
@@ -30,14 +33,16 @@ class ExperienceController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        // dd(Resume::find(auth()->user()->id)->id);
         $values = $request->validate([
             'start_date'=>['required', 'before_or_equal:'.Carbon::today()->subMonths(3)->format('Y-m')],
             'leave_date'=>['required', 'date'],
             'employer'=>['required', ],
             'city'=>['required', 'string'],
-            'country'=>['required', 'string']
+            'country'=>['required', 'string'],
+            'job_id'=>['required', Rule::exists('jobs', 'id')]
         ]);
+        $values['resume_id'] = Resume::find(auth()->user()->id)->id;
         $experience=Experience::create($values);
         if ($experience) {
             session()->put('experience_id', $experience->id);

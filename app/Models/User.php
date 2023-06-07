@@ -55,8 +55,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function resume()
+    /**
+     * Get the Resume that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function Resume()
     {
-        return $this->hasOne(Resume::class, 'user_id', 'id');
+        return $this->belongsTo(Resume::class);
     }
 }

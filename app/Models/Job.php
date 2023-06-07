@@ -10,12 +10,22 @@ class Job extends Model
     use HasFactory;
 
     /**
-     * Get the SeekerDuties associated with the Job
+     * Get all of the Experience for the Job
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function SeekerDuties()
+    public function Experience()
     {
-        return $this->hasOne(Seeker_Duties::class);
+        return $this->hasMany(Experience::class, );
+    }
+
+    /**
+     * Get all of the Duties for the Job
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function Duties()
+    {
+        return $this->hasManyThrough(Duties::class, Experience::class);
     }
 }

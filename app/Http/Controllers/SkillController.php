@@ -22,7 +22,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        return view('customers.resume.createSkill');
+        // return view('customers.resume.createSkill')->with(['skills'=>Skill::all()]);
     }
 
     /**

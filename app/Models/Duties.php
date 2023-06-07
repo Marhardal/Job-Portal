@@ -11,12 +11,22 @@ class Duties extends Model
     use HasFactory;
 
     /**
-     * Get the SeekerDuties that owns the Duties
+     * The Experience that belong to the Duties
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function Experience()
+    {
+        return $this->belongsToMany(Experience::class, 'duty_experiences', 'duties_id', 'experience_id', 'id');
+    }
+
+    /**
+     * Get the Job that owns the Duties
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function SeekerDuties()
+    public function Job()
     {
-        return $this->hasMany(SeekerDuties::class);
+        return $this->belongsTo(Job::class);
     }
 }

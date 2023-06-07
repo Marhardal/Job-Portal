@@ -9,36 +9,27 @@ class Resume extends Model
 {
     use HasFactory;
 
-    protected $with = ['seeker', 'SeekerDuties', 'education', 'referral', 'skill'];
+    protected $with = ['user', 'skill', 'qualification', 'referral'];
 
     /**
-     * Get the Seeker that owns the Resume
+     * Get the user that owns the Resume
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Seeker()
+    public function User()
     {
-        return $this->belongsTo(Seeker::class, '');
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * Get the SeekerDuties associated with the Resume
+     * The Qualification that belong to the Resume
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function SeekerDuties()
-    {
-        return $this->hasOne(SeekerDuties::class, 'id');
-    }
 
-    /**
-     * Get all of the Education for the Resume
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
-     */
-    public function Education()
+    public function Qualification()
     {
-        return $this->hasOne(Education::class, 'id');
+        return $this->belongsToMany(Qualification::class, 'education', 'resume_id', 'qualification_id', 'id')->withPivot('school', 'start_date', 'graduation_date');
     }
 
     /**
@@ -48,26 +39,26 @@ class Resume extends Model
      */
     public function Referral()
     {
-        return $this->hasOne(Referral::class,'id');
+        return $this->hasMany(Referral::class);
     }
 
     /**
-     * Get the Skill associated with the Resume
+     * The Skill that belong to the Resume
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function Skill()
     {
-        return $this->hasOne(Skill::class, 'id');
+        return $this->belongsToMany(Skill::class, 'resume_skills', 'resume_id', 'skill_id', 'id');
     }
 
     /**
-     * Get all of the experience for the Resume
+     * Get all of the Experience for the Resume
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function experience()
+    public function Experience()
     {
-        return $this->hasManyThrough(Experience::class, SeekerDuties::class, );
+        return $this->hasMany(Experience::class);
     }
 }

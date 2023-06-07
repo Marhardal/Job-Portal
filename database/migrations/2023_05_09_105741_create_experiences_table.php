@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
-            $table->date("start_date");
-            $table->date("leave_date");
+            $table->unsignedInteger('resume_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedInteger('job_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string("start_date");
+            $table->string("leave_date");
             $table->string("employer");
             $table->string("City");
             $table->string("country");

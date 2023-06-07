@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('seekers', function (Blueprint $table) {
+        Schema::create('duties_experiences', function (Blueprint $table) {
             $table->id();
-            $table->string("first_name");
-            $table->string("surname");
-            $table->string("gender");
-            $table->string("phone_number");
-            $table->string("email");
-            $table->string("date_of_birth");
+            $table->unsignedInteger('duty_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedInteger('experience_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seekers');
+        Schema::dropIfExists('dutyexperiences');
     }
 };
