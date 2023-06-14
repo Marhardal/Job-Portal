@@ -28,7 +28,7 @@ class SeekerDutiesController extends Controller
      */
     public function create()
     {
-        return view('customers.resume.jobduties')->with(['jobs' => Job::all(), 'duties' => Duties::all()]);
+        return view('seeker.resume.jobduties')->with(['jobs' => Job::all(), 'duties' => Duties::all()]);
     }
 
     /**

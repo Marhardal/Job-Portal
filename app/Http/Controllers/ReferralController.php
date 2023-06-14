@@ -22,7 +22,7 @@ class ReferralController extends Controller
      */
     public function create()
     {
-        return view('customers.resume.createReferral');
+        return view('seeker.resume.createReferral');
     }
 
     /**
@@ -64,7 +64,7 @@ class ReferralController extends Controller
      */
     public function edit(Referral $referral)
     {
-        //
+        return view('seeker.resume.editReferral')->with(['referral'=>$referral]);
     }
 
     /**
@@ -72,7 +72,23 @@ class ReferralController extends Controller
      */
     public function update(Request $request, Referral $referral)
     {
-        //
+        $values = $request->validate([
+            'first_name' => ['required'],
+            'Surname' => ['required'],
+            'job_title' => ['required'],
+            'email' => ['required'],
+            'phone_number' => ['required'],
+            'employer' => ['required'],
+            'city' => ['required'],
+            'country' => ['required'],
+        ]);
+        if ($referral->update($values)) {
+            return redirect('resume');
+            Alert::success('Success', 'Referral Updated');
+        }else {
+            return redirect()->back();
+            Alert::error("Failed", "Referral not Update.");
+        }
     }
 
     /**
@@ -80,6 +96,7 @@ class ReferralController extends Controller
      */
     public function destroy(Referral $referral)
     {
-        //
+        $referral->delete();
+        return redirect()->back();
     }
 }

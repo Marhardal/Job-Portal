@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
-use App\Models\User;
+use App\Models\link;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
-class JobController extends Controller
+class LinkController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // dd(request()->user()->cannot('seeker'));
-        return view("seeker.jobs");
+        //
     }
 
     /**
@@ -38,7 +34,7 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Job $job)
+    public function show(link $link)
     {
         //
     }
@@ -46,7 +42,7 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Job $job)
+    public function edit(link $link)
     {
         //
     }
@@ -54,7 +50,7 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Job $job)
+    public function update(Request $request, link $link)
     {
         //
     }
@@ -62,7 +58,7 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Job $job)
+    public function destroy(link $link)
     {
         //
     }

@@ -28,5 +28,10 @@ class AppServiceProvider extends ServiceProvider
         {
             return $user->type->role === "Seeker";
         });
+
+        Gate::define('recruiter', function (User $user)
+        {
+            return $user->type->role === "Recruiter";
+        });
     }
 }

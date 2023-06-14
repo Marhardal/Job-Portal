@@ -1,5 +1,5 @@
-<x-Customer-Layouts>
-    @include('Layouts.Customer-Nav')
+<x-layouts>
+    @include('Layouts.seeker')
     <div class="mx-auto text-black justify-center items-center h-screen flex flex-col space-y-6">
         <h1 class="text-2xl font-bold">Let's Get you Started.</h1>
         <h3 class="text-xl font-semibold">Do you already an account.</h3>
@@ -44,4 +44,4 @@
             </x-button-link>
         </div>
     </div>
-</x-Customer-Layouts>
+</x-layouts>

@@ -17,10 +17,11 @@ class ResumeController extends Controller
     public function index()
     {
         // $resume = Resume::find(auth()->user()->id);
+        // dd($resume->qualification->pivot);
         // foreach (Experience::first()->duties as $key => $value) {
         //     dd($value->count());
         // }
-        return view('customers.resume')->with(['resume'=>Resume::find(auth()->user()->id)]);
+        return view('seeker.resume')->with(['resume' => Resume::find(auth()->user()->id)]);
     }
 
     /**
@@ -28,7 +29,7 @@ class ResumeController extends Controller
      */
     public function create()
     {
-        return view('customers.resume.create');
+        return view('seeker.resume.create');
     }
 
     /**
@@ -38,6 +39,10 @@ class ResumeController extends Controller
     {
         // dd(auth()->user()->id);
         $values = $request->validate([
+            'phone'=>['nullable'],
+            'postal'=>['nullable'],
+            'city'=>['required'],
+            'country'=>['required'],
             'summary' => ['required', 'min:200'],
         ]);
 
@@ -66,7 +71,7 @@ class ResumeController extends Controller
      */
     public function edit(Resume $resume)
     {
-        //
+        return view('seeker.resume.resumeUpdate')->with(['resume' => $resume]);
     }
 
     /**
@@ -74,7 +79,22 @@ class ResumeController extends Controller
      */
     public function update(Request $request, Resume $resume)
     {
-        //
+        $values = $request->validate([
+            'phone'=>['nullable'],
+            'postal'=>['nullable'],
+            'city'=>['required'],
+            'country'=>['required'],
+            'summary' => ['required', 'min:200'],
+        ]);
+
+        if ($resume->update($values)) {
+            session()->put("resume_id", $resume->id);
+            return redirect('resume');
+            Alert::success('Success', 'Professional Summary Updated');
+        } else {
+            return redirect()->back();
+            Alert::error("Failed", "Professional Summary not Created.");
+        }
     }
 
     /**

@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\DutyexperienceController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeSkillController;
@@ -26,8 +28,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/email/verify', function (){
+//     return view
+// })
+
 Route::get('/', function () {
-    return view('customers.home');
+    return view('seeker.home');
 });
 
 Route::middleware('guest')->group(function ()
@@ -45,6 +51,11 @@ Route::middleware('guest')->group(function ()
     Route::post('register', [UserController::class, 'store']);
 
     Route::post('login', [UserController::class, 'login']);
+
+    Route::get('organisation/register', [OrganisationController::class, 'create']);
+
+    Route::post('organisation/register', [OrganisationController::class, 'store']);
+
 });
 
 Route::middleware('can:seeker')->group(function ()
@@ -53,28 +64,29 @@ Route::middleware('can:seeker')->group(function ()
 
     Route::get('resume/create', [ResumeController::class, 'create']);
 
+    Route::get('resume/{resume:id}/edit', [ResumeController::class, 'edit']);
+
+    Route::patch('resume/{resume:id}/update', [ResumeController::class, 'update']);
+
     Route::post('resume', [ResumeController::class, 'store']);
 
     Route::get('resume/experience', [ExperienceController::class, 'create']);
 
     Route::post('resume/experience', [ExperienceController::class, 'store']);
 
+    Route::get('resume/experience/{experience:id}', [ExperienceController::class, 'edit']);
+
     Route::get('resume/jobduties', [DutyExperienceController::class, 'create']);
 
     Route::post('resume/jobduties', [DutyExperienceController::class, 'store']);
 
-    Route::get('resume/skill', [ResumeSkillController::class, 'create']);
+    Route::resource('resume/skill', ResumeSkillController::class)->except(['show', 'index', 'edit', 'update']);
 
-    Route::post('resume/skill', [ResumeSkillController::class, 'store']);
+    Route::resource('resume/referral', ReferralController::class)->except(['show', 'index']);
 
-    Route::get('resume/referral', [ReferralController::class, 'create']);
+    Route::resource('resume/education', EducationController::class)->except(['show', 'index']);
 
-    Route::post('resume/referral', [ReferralController::class, 'store']);
-
-    Route::get('resume/education', [EducationController::class, 'create']);
-
-    Route::post('resume/education', [EducationController::class, 'store']);
-
+    Route::get('resume/download', [DocumentsController::class, 'resume']);
 });
 
 Route::get('vacancies', [JobController::class, 'index']);

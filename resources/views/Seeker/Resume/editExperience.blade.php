@@ -1,4 +1,4 @@
-<x-Customer-Layouts>
+<x-Layouts>
     {{-- {{ dd(auth()->user()->role); }} --}}
     @auth
         <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -16,23 +16,37 @@
                                             Profesional Summary</h3>
                                         <hr class="mb-3 h-2">
                                         <div class="grid grid-cols-2 gap-3">
-                                            <x-form.date name="start_date" placeholder="" type="month" label="MM/YYYY" />
-                                            <x-form.date name="leave_date" placeholder="" type="month" label="MM/YYYY" />
+                                            <x-form.date name="start_date" id="month" placeholder="" type="month"
+                                                label="MM/YYYY" value="{{ $experience->start_date }}" />
+                                            <x-form.date name="leave_date" placeholder="" type="month" label="MM/YYYY"
+                                                value="{{ $experience->leave_date }}" />
                                             <div class="mb-3 col-span-2">
                                                 <div class="">
-                                                    <label for="job_id" class="text-gray-500 text-sm focus:text-gray-500 focus:text-sm transition-all">Enter the position you were in.</label>
-                                                    <select name="job_id" class="w-full border-2 rounded-md border-gray-300 py-1.5 focus:border-blue-600 px-2 focus:outline-none transition-colors">
+                                                    <label for="job_id"
+                                                        class="text-gray-500 text-sm focus:text-gray-500 focus:text-sm transition-all">Enter
+                                                        the position you were in.</label>
+                                                    <select name="job_id"
+                                                        class="w-full border-2 rounded-md border-gray-300 py-1.5 focus:border-blue-600 px-2 focus:outline-none transition-colors">
                                                         @foreach ($jobs as $item)
-                                                            <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
+                                                            {{-- <option value="{{ $item->id }}"
+                                                                @selected($experience->job_id == $item->id)>{{ $item->name }}</option> --}}
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <x-form.error name="job"/>
+                                                <x-form.error name="job" />
                                             </div>
                                             <x-form.text name="employer" placeholder="Name of your employer."
-                                                class="mt-5 col-span-2" />
-                                            <x-form.text name="city" placeholder="Name of the city." class="mt-5" />
-                                            <x-form.text name="country" placeholder="Name of the country." class="mt-5" />
+                                                class="mt-5 col-span-2" value="{{ $experience->employer }}" />
+                                            <x-form.text name="city" placeholder="Name of the city." class="mt-5"
+                                                value="{{ $experience->City }}" />
+                                            <x-form.text name="country" placeholder="Name of the country." class="mt-5"
+                                                value="{{ $experience->country }}" />
+                                            <div class="relative col-span-2">
+                                                {{-- <textarea name="duty_id" cols="30" rows="7"
+                                                    class="peer w-full border-2 rounded-md py-2 border-gray-300 focus:border-blue-600 px-2 focus:outline-none transition-colors placeholder-transparent focus:top-3 resize-none"
+                                                    placeholder="" id="duty_id">{{ old('duty_id', $experience->pivot->duty_id ) }}</textarea> --}}
+                                                <x-form.error name="duty_id" />
+                                            </div>
                                         </div>
                                         <x-form.radio name="status" label="Currently working there." class="mt-4" />
                                     </div>
@@ -51,4 +65,4 @@
             </div>
         </div>
     @endauth
-</x-Customer-Layouts>
+</x-Layouts>

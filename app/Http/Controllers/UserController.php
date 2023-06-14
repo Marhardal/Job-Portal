@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organisation;
+use App\Models\Recruiter;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -25,6 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        // dd(session('org_id'));
         return view('Users.register');
     }
 
@@ -43,9 +46,22 @@ class UserController extends Controller
             'gender' => ['required', 'min:4', 'max:6'],
             'phone' => ['required', 'min:7', 'max:15'],
         ]);
-        $values['type_id'] = 1;
+        $org_id = 0;
+        if (!empty(session('org_id'))) {
+            $org_id = session('org_id');
+        }else {
+            // dd('empty');
+            $values['type_id'] = 1;
+        }
         $user=User::create($values);
         if ($user) {
+            if (!empty(session('org_id'))) {
+                Recruiter::create([
+                    'user_id'=>$user->id,
+                    'organisation_id'=>session('org_id')
+                ]);
+                session()->pull('org_id');
+            }
             Alert::success("Success", "Account Created");
             auth()->login($user);
             return redirect('vacancies');

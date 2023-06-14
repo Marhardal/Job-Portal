@@ -25,7 +25,7 @@ class EducationController extends Controller
      */
     public function create()
     {
-        return view('customers.resume.createEducation')->with(['qualification'=>Qualification::all()]);
+        return view('seeker.resume.createEducation')->with(['qualification' => Qualification::all()]);
     }
 
     /**
@@ -63,7 +63,7 @@ class EducationController extends Controller
      */
     public function edit(Education $education)
     {
-        //
+        return view('seeker.resume.editEducation')->with(['education' => $education, 'qualification'=>Qualification::all()]);
     }
 
     /**
@@ -71,7 +71,19 @@ class EducationController extends Controller
      */
     public function update(Request $request, Education $education)
     {
-        //
+        $values = $request->validate([
+            'qualification_id' => ['required', Rule::exists('qualifications', 'id')],
+            'school' => ['required'],
+            'start_date' => ['required'],
+            'graduation_date' => ['required'],
+        ]);
+        if ($education->update($values)) {
+            return redirect('resume');
+            Alert::success('Success', 'Referral Updated');
+        } else {
+            return redirect()->back();
+            Alert::error("Failed", "Referral not Updated.");
+        }
     }
 
     /**
@@ -79,6 +91,7 @@ class EducationController extends Controller
      */
     public function destroy(Education $education)
     {
-        //
+        $education->delete();
+        return redirect()->back();
     }
 }
