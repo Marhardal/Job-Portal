@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resumes', function (Blueprint $table) {
+        Schema::create('recruiters', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('organisation_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedInteger('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->text("summary");
-            $table->string('district');
-            $table->string('country');
-            $table->string('address')->nullable();
-            $table->string('phone_number')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('resumes');
+        Schema::dropIfExists('recruiters');
     }
 };

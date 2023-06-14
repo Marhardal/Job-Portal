@@ -17,7 +17,7 @@ class Duties extends Model
      */
     public function Experience()
     {
-        return $this->belongsToMany(Experience::class, 'duty_experiences', 'duties_id', 'experience_id', 'id');
+        return $this->belongsToMany(Experience::class, 'duty_experiences', 'duties_id', 'experience_id')->withPivot('duty_id');
     }
 
     /**

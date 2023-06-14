@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resumes', function (Blueprint $table) {
+        Schema::create('organisations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->text("summary");
-            $table->string('district');
+            $table->string('name');
+            $table->text('about');
+            $table->string('link')->nullable();
+            $table->string('email')->unique();
+            $table->string('post_address')->nullable();
+            $table->string('city');
             $table->string('country');
-            $table->string('address')->nullable();
-            $table->string('phone_number')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('resumes');
+        Schema::dropIfExists('organisations');
     }
 };

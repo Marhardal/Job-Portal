@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Duties;
 use Carbon\Carbon;
 use App\Models\Resume;
 use App\Models\Experience;
@@ -9,6 +10,7 @@ use App\Models\Job;
 use App\Models\SeekerDuties;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Exists;
 
 class ExperienceController extends Controller
 {
@@ -25,7 +27,7 @@ class ExperienceController extends Controller
      */
     public function create()
     {
-        return view("customers.resume.experience")->with('jobs', Job::all());
+        return view("seeker.resume.experience")->with('jobs', Job::all());
     }
 
     /**
@@ -65,7 +67,14 @@ class ExperienceController extends Controller
      */
     public function edit(Experience $experience)
     {
-        //
+        // if ($experience->duties->exists()) {
+        //     dd('exist');
+        // } else {
+        //     dd('No pivot');
+        // }
+
+        dd($experience->pivot);
+        return view('seeker.resume.editExperience')->with(['experience'=>$experience, 'jobs'=>Job::all()]);
     }
 
     /**

@@ -25,7 +25,7 @@ class ResumeSkillController extends Controller
      */
     public function create()
     {
-        return view('customers.resume.createSkill')->with(['skills' => Skill::all()]);
+        return view('seeker.resume.createSkill')->with(['skills' => Skill::all()]);
     }
 
     /**
@@ -76,6 +76,8 @@ class ResumeSkillController extends Controller
      */
     public function destroy(ResumeSkill $resumeSkill)
     {
-        //
+        // dd($resumeSkill);
+        $resumeSkill->delete();
+        return redirect()->back();
     }
 }

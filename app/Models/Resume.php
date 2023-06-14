@@ -29,7 +29,7 @@ class Resume extends Model
 
     public function Qualification()
     {
-        return $this->belongsToMany(Qualification::class, 'education', 'resume_id', 'qualification_id', 'id')->withPivot('school', 'start_date', 'graduation_date');
+        return $this->belongsToMany(Qualification::class, 'education', 'resume_id', 'qualification_id', 'id')->withPivot('id','school', 'start_date', 'graduation_date');
     }
 
     /**
@@ -49,7 +49,7 @@ class Resume extends Model
      */
     public function Skill()
     {
-        return $this->belongsToMany(Skill::class, 'resume_skills', 'resume_id', 'skill_id', 'id');
+        return $this->belongsToMany(Skill::class, 'resume_skills', 'resume_id', 'skill_id', 'id')->withPivot('id');
     }
 
     /**

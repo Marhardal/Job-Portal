@@ -1,5 +1,5 @@
-<x-Customer-Layouts>
-        @include('Layouts.Customer-Nav')
+<x-layouts>
+        @include('Layouts.seeker')
         <section class="">
             <div class="max-w-md mx-auto justify-center items-center align-middle h-screen flex flex-col">
                 <h1 class="text-lg text-center font-bold order-1">Welcome Back.</h1>
@@ -8,8 +8,8 @@
                     @csrf
                     <x-form.text name="username" placeholder="Enter your Username."/>
                     <x-form.text  name="password" type="password" placeholder="Enter your Password" class="mt-5"/>
-                    <x-form.button value="Login" class="bg-blue-500 mt-5 mx-auto  text-center"/>
+                    <x-form.button value="Login" class="bg-blue-500 mt-5 mx-auto  text-center">Login</x-form.button>
                 </form>
             </div>
         </section>
-</x-Customer-Layouts>
+</x-layouts>

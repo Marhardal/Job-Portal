@@ -6,7 +6,7 @@ use App\Models\Duties;
 use App\Models\Resume;
 use App\Models\Experience;
 use Illuminate\Http\Request;
-use App\Models\dutyexperience;
+use App\Models\DutyExperience;
 use Illuminate\Validation\Rule;
 
 class DutyExperienceController extends Controller
@@ -24,7 +24,7 @@ class DutyExperienceController extends Controller
      */
     public function create()
     {
-        return view('customers.resume.jobduties')->with(['duties'=>Duties::get()]);
+        return view('seekers.resume.jobduties')->with(['duties'=>Duties::get()]);
     }
 
     /**
@@ -32,18 +32,18 @@ class DutyExperienceController extends Controller
      */
     public function store(Request $request)
     {
-        dd(Experience::latest()->first()->id);
-        // $values=$request->validate([
-        //     'duty_id'=>['required', Rule::exists('duties', 'id')],
-        // ]);
-        // $values['resume_id'] = Resume::find(auth()->user()->id)->id;
-        // $values['resume_id'] = Resume::find(auth()->user()->id)->experience->id;
-        // $experience=dutyexperience::create($values);
-        // if ($experience) {
-        //     return redirect('resume');
-        // } else {
-        //     return redirect()->back();
-        // }
+        // $duty_id = strip_tags($request->duty_id);
+        $values=$request->validate([
+            'duty_id' => ['required'],
+        ]);
+        $values['duty_id'] = strip_tags($values['duty_id']);
+        $values['experience_id'] = Resume::find(auth()->user()->id)->experience->last()->id;
+        $experience=DutyExperience::create($values);
+        if ($experience) {
+            return redirect('resume');
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -75,6 +75,7 @@ class DutyExperienceController extends Controller
      */
     public function destroy(dutyexperience $dutyexperience)
     {
-        //
+        dd($dutyexperience);
+        // $dutyexperience->delete();
     }
 }

@@ -1,5 +1,5 @@
-<x-Customer-Layouts>
-    @include('Layouts.Customer-Nav')
+<x-layouts>
+    @include('Layouts.seeker')
     <section class="container mt-10">
         <h1 class="mx-auto text-center text-xl text-bold">Create an account.</h1>
         <p class="mx-auto text-center text-lg max-w-2xl mt-4 mb-5">If you are a recruiter or recruiting team don't use this form for creating your account rather
@@ -28,10 +28,13 @@
                     <x-form.text name="password_confirmation" type="password" placeholder="Confirm your password." />
                     <x-form.text name="type_id" name="1" placeholder="" class="hidden"/>
                     <div class="col-span-2 mx-auto">
-                        <x-form.button value="Register" name="register" class="bg-blue-500 hover:bg-blue-400 transition-colors"/>
+                        <x-form.button name="register" class="bg-blue-500 hover:bg-blue-400 transition-colors">Register</x-form.button>
+                    </div>
+                    <div class="col-span-2 mx-auto">
+                        Register as a recruitment team <x-button-link href="{{ URL::to('organisation/register') }}" class="bg-green-400 py-2 px-4 text-white">Recruitment Team</x-button-link>.
                     </div>
                 </div>
             </form>
         </div>
     </section>
-</x-Customer-Layouts>
+</x-layouts>
