@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use Khsing\World\World;
 
 class VacancyController extends Controller
 {
@@ -13,6 +14,7 @@ class VacancyController extends Controller
     public function index()
     {
         // dd(session('org_id'));
+        dd(World::Continents());
         return view("seeker.jobs")->with(['jobs'=>Vacancy::latest()]);
     }
 
@@ -21,7 +23,7 @@ class VacancyController extends Controller
      */
     public function create()
     {
-        //
+        dd(World::Continents());
     }
 
     /**
