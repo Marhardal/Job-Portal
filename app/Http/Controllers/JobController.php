@@ -16,7 +16,6 @@ class JobController extends Controller
     public function index()
     {
         // dd(request()->user()->cannot('seeker'));
-        return view("seeker.jobs");
     }
 
     /**

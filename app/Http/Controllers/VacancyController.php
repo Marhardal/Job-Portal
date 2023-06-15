@@ -12,7 +12,8 @@ class VacancyController extends Controller
      */
     public function index()
     {
-        //
+        // dd(session('org_id'));
+        return view("seeker.jobs")->with(['jobs'=>Vacancy::latest()]);
     }
 
     /**
