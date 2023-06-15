@@ -14,7 +14,6 @@ class VacancyController extends Controller
     public function index()
     {
         // dd(session('org_id'));
-        dd(World::Continents());
         return view("seeker.jobs")->with(['jobs'=>Vacancy::latest()]);
     }
 

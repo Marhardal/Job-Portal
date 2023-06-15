@@ -12,7 +12,6 @@ use App\Http\Controllers\ResumeSkillController;
 use App\Http\Controllers\SeekerDutiesController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VacancyController;
 use App\Models\Education;
 use App\Models\Experience;
 use Database\Factories\SeekerDutiesFactory;
@@ -90,8 +89,5 @@ Route::middleware('can:seeker')->group(function ()
     Route::get('resume/download', [DocumentsController::class, 'resume']);
 });
 
-Route::get('jobs', [VacancyController::class, 'index']);
+Route::get('vacancies', [JobController::class, 'index']);
 
-Route::middleware('can:recruiter')->group(function () {
-    Route::resource('job', VacancyController::class);
-});

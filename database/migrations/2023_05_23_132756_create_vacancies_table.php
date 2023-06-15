@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('organisation_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedInteger('company_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedInteger('arrangement_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->text('description');
-            $table->string('position');
-            $table->string('location');
-            $table->timestamp('deactivated_at');
+            $table->string('Description');
             $table->timestamps();
         });
     }
