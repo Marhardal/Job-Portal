@@ -7,6 +7,7 @@ use App\Models\Referral;
 use App\Models\Resume;
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use Nnjeim\World\World;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ResumeController extends Controller
@@ -16,12 +17,8 @@ class ResumeController extends Controller
      */
     public function index()
     {
-        // $resume = Resume::find(auth()->user()->id);
-        // dd($resume->qualification->pivot);
-        // foreach (Experience::first()->duties as $key => $value) {
-        //     dd($value->count());
-        // }
-        return view('seeker.resume')->with(['resume' => Resume::find(auth()->user()->id)]);
+        // dd(Resume::find(auth()->user())->get());
+        return view('seeker.resume')->with(['resumes' => Resume::find(auth()->user())]);
     }
 
     /**
@@ -29,7 +26,11 @@ class ResumeController extends Controller
      */
     public function create()
     {
-        return view('seeker.resume.create');
+        $cities = World::cities([
+            'fields' => 'cities',
+            'filters' => ['country_id' => '131']
+        ]);
+        return view('seeker.resume.create')->with(["countries" => World::Countries(), "district" => $cities]);
     }
 
     /**
@@ -37,19 +38,19 @@ class ResumeController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(auth()->user()->id);
         $values = $request->validate([
-            'phone'=>['nullable'],
-            'postal'=>['nullable'],
-            'city'=>['required'],
-            'country'=>['required'],
+            'phone_number' => ['nullable'],
+            'address' => ['nullable'],
+            'district' => ['required'],
+            'country' => ['required'],
             'summary' => ['required', 'min:200'],
         ]);
+
+        // dd($values);
 
         $values['user_id'] = auth()->user()->id;
         $resume = Resume::create($values);
         if ($resume) {
-            session()->put("resume_id", $resume->id);
             return redirect('resume/experience');
             Alert::success('Success', 'Professional Summary Created');
         } else {
@@ -80,10 +81,10 @@ class ResumeController extends Controller
     public function update(Request $request, Resume $resume)
     {
         $values = $request->validate([
-            'phone'=>['nullable'],
-            'postal'=>['nullable'],
-            'city'=>['required'],
-            'country'=>['required'],
+            'phone' => ['nullable'],
+            'postal' => ['nullable'],
+            'city' => ['required'],
+            'country' => ['required'],
             'summary' => ['required', 'min:200'],
         ]);
 

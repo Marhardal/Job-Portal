@@ -49,6 +49,7 @@ class UserController extends Controller
         $org_id = 0;
         if (!empty(session('org_id'))) {
             $org_id = session('org_id');
+            $values['type_id'] = 3;
         }else {
             // dd('empty');
             $values['type_id'] = 1;
@@ -64,7 +65,7 @@ class UserController extends Controller
             }
             Alert::success("Success", "Account Created");
             auth()->login($user);
-            return redirect('vacancies');
+            return redirect('jobs');
         }else {
             Alert::error("Failed", "Account not Created");
             return redirect()->back();
@@ -112,7 +113,7 @@ class UserController extends Controller
 
         if (auth()->attempt($values)) {
             Alert::success('Success', 'Logged-in Successfully.');
-            return redirect('vacancies');
+            return redirect('jobs');
         }
 
         throw ValidationException::withMessages(['username' => 'Your provided credentials could not be verified.']);

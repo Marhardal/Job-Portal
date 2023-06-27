@@ -24,7 +24,7 @@ class DutyExperienceController extends Controller
      */
     public function create()
     {
-        return view('seekers.resume.jobduties')->with(['duties'=>Duties::get()]);
+        return view('seeker.resume.JobDuties')->with(['duties'=>Duties::get()]);
     }
 
     /**
@@ -36,8 +36,7 @@ class DutyExperienceController extends Controller
         $values=$request->validate([
             'duty_id' => ['required'],
         ]);
-        $values['duty_id'] = strip_tags($values['duty_id']);
-        $values['experience_id'] = Resume::find(auth()->user()->id)->experience->last()->id;
+        $values['experience_id'] = Experience::latest()->first()->id;
         $experience=DutyExperience::create($values);
         if ($experience) {
             return redirect('resume');

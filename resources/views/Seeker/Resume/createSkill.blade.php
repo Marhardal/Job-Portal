@@ -1,5 +1,12 @@
 <x-layouts>
     @auth
+    <style>
+        .top-100 {top: 100%}
+        .bottom-100 {bottom: 100%}
+        .max-h-select {
+            max-height: 300px;
+        }
+    </style>
     <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
@@ -16,8 +23,8 @@
                                     @if ($skills->count() > 0)
                                     <div class="mb-3">
                                         <div class="">
-                                            <label for="skill_id" class="text-gray-500 text-sm focus:text-gray-500 focus:text-sm transition-all">Enter the position you were in.</label>
-                                            <select name="skill_id" class="w-full border-2 rounded-md border-gray-300 py-1.5 focus:border-blue-600 px-2 focus:outline-none transition-colors">
+                                            <label for="skill_id[]" class="text-gray-500 text-sm focus:text-gray-500 focus:text-sm transition-all">Enter the position you were in.</label>
+                                            <select name="skill_id" class="w-full border-2 rounded-md border-gray-300 py-1.5 focus:border-blue-600 px-2 focus:outline-none transition-colors skills " multiple>
                                                 @foreach ($skills as $item)
                                                     <option value="{{ $item->id }}">{{ ucwords($item->name) }}</option>
                                                 @endforeach
@@ -28,6 +35,7 @@
                                     @endif
                                 </div>
                             </div>
+
                         </div>
                         <div class="bg-gray-50 px-4 py-2 sm:flex sm:flex-row-reverse sm:px-6">
                             <x-form.button value="Next" class="inline-flex mt-3 justify-center bg-blue-400 hover:bg-blue-500  sm:ml-3 sm:mt-3">Done</x-form.button>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('applicants', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('vacancy_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->unsignedInteger('seeker_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedInteger('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

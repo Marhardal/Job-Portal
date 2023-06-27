@@ -1,21 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\DutyexperienceController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
-use App\Http\Controllers\JobController;
 use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeSkillController;
-use App\Http\Controllers\SeekerDutiesController;
-use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
-use App\Models\Education;
-use App\Models\Experience;
-use Database\Factories\SeekerDutiesFactory;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VacancyDutiesController;
+use App\Http\Controllers\VacancyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,17 +66,13 @@ Route::middleware('can:seeker')->group(function ()
 
     Route::post('resume', [ResumeController::class, 'store']);
 
-    Route::get('resume/experience', [ExperienceController::class, 'create']);
-
-    Route::post('resume/experience', [ExperienceController::class, 'store']);
-
-    Route::get('resume/experience/{experience:id}', [ExperienceController::class, 'edit']);
+    Route::resource('resume/experience', ExperienceController::class)->except(['show', 'index']);
 
     Route::get('resume/jobduties', [DutyExperienceController::class, 'create']);
 
     Route::post('resume/jobduties', [DutyExperienceController::class, 'store']);
 
-    Route::resource('resume/skill', ResumeSkillController::class)->except(['show', 'index', 'edit', 'update']);
+    Route::resource('resume/skill', ResumeSkillController::class)->only(['create', 'store', 'destroy']);
 
     Route::resource('resume/referral', ReferralController::class)->except(['show', 'index']);
 
@@ -89,5 +81,12 @@ Route::middleware('can:seeker')->group(function ()
     Route::get('resume/download', [DocumentsController::class, 'resume']);
 });
 
-Route::get('vacancies', [JobController::class, 'index']);
+Route::middleware(['can:recruiter'])->group(function () {
+
+    Route::resource('vacancy', VacancyController::class)->except(['index', 'show'])->except(['index', 'show']);
+
+    Route::resource('vacancies/duties', VacancyDutiesController::class);
+});
+
+Route::resource('jobs', VacancyController::class)->only(['index', 'show']);
 

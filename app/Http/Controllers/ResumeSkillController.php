@@ -34,17 +34,20 @@ class ResumeSkillController extends Controller
     public function store(Request $request)
     {
         $values = $request->validate([
-            'skill_id' => ['required', Rule::exists('skills', 'id')]
+            'skill_id[]' => ['required', Rule::exists('skills', 'id')]
         ]);
-
-        $values['resume_id'] = Resume::find(auth()->user()->id)->id;
-        if (ResumeSkill::create($values)) {
-            return redirect('resume');
-            Alert::success('Success', 'Skill Created');
-        } else {
-            return redirect()->back();
-            Alert::error("Failed", "Skill not Created.");
+        foreach ($values as $key => $value) {
+            dd($value);
         }
+
+        // $values['resume_id'] = Resume::find(auth()->user()->id)->id;
+        // if (ResumeSkill::create($values)) {
+        //     return redirect('resume');
+        //     Alert::success('Success', 'Skill Created');
+        // } else {
+        //     return redirect()->back();
+        //     Alert::error("Failed", "Skill not Created.");
+        // }
     }
 
     /**

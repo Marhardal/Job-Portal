@@ -5,8 +5,9 @@
             <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
             <div class="fixed inset-0 z-10 overflow-y-auto">
                 <div class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
-                    <form action="{{ URL::to('resume/experience') }}" method="post"
+                    <form action="{{ URL::to('/resume/experience/' . $experience->id) }}" method="post"
                         class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-3xl md:max-w-2xl sm:mx-auto">
+                        @method('patch')
                         @csrf
                         <div>
                             <div class="bg-white px-4 py-2 sm:p-3 sm:pb-2">
@@ -28,8 +29,8 @@
                                                     <select name="job_id"
                                                         class="w-full border-2 rounded-md border-gray-300 py-1.5 focus:border-blue-600 px-2 focus:outline-none transition-colors">
                                                         @foreach ($jobs as $item)
-                                                            {{-- <option value="{{ $item->id }}"
-                                                                @selected($experience->job_id == $item->id)>{{ $item->name }}</option> --}}
+                                                            <option value="{{ $item->id }}"
+                                                                @selected($experience->job_id == $item->id)>{{ $item->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -37,10 +38,44 @@
                                             </div>
                                             <x-form.text name="employer" placeholder="Name of your employer."
                                                 class="mt-5 col-span-2" value="{{ $experience->employer }}" />
-                                            <x-form.text name="city" placeholder="Name of the city." class="mt-5"
-                                                value="{{ $experience->City }}" />
-                                            <x-form.text name="country" placeholder="Name of the country." class="mt-5"
-                                                value="{{ $experience->country }}" />
+                                            <div class="mb-3">
+                                                <div class="">
+                                                    <label for="country"
+                                                        class="text-gray-500 text-sm focus:text-gray-500 focus:text-sm transition-all">Select
+                                                        a country where the company is based</label>
+                                                    <select name="country" id="country"
+                                                        class="w-full border-2 rounded-md border-gray-300 py-1.5 focus:border-blue-600 px-2 focus:outline-none transition-colors">
+                                                        <option value="">Please Select the country you are in.
+                                                        </option>
+                                                        @foreach ($countries->data as $item)
+                                                            <option value="{{ $item['name'] }}"
+                                                                @selected(old('country') == $item['name'] | $experience->country == $item['name'])>
+                                                                {{ ucwords($item['name']) }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <x-form.error name="country" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="">
+                                                    <label for="city"
+                                                        class="text-gray-500 text-sm focus:text-gray-500 focus:text-sm transition-all">Select
+                                                        a city where the company is based</label>
+                                                    <select name="city" id="city"
+                                                        class="w-full border-2 rounded-md border-gray-300 py-1.5 focus:border-blue-600 px-2 focus:outline-none transition-colors">
+                                                        <option value="">Please Select the city you are in.
+                                                        </option>
+                                                        @foreach ($city->data as $item)
+                                                            <option value="{{ $item['name'] }}"
+                                                                @selected(old('city') == $item['name'] | $experience->city == $item['name'])>
+                                                                {{ ucwords($item['name']) }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <x-form.error name="city" />
+                                            </div>
                                             <div class="relative col-span-2">
                                                 {{-- <textarea name="duty_id" cols="30" rows="7"
                                                     class="peer w-full border-2 rounded-md py-2 border-gray-300 focus:border-blue-600 px-2 focus:outline-none transition-colors placeholder-transparent focus:top-3 resize-none"
@@ -53,8 +88,9 @@
                                 </div>
                             </div>
                             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                <x-form.button value="Next"
-                                    class="inline-flex w-full justify-center bg-blue-500 hover:bg-red-500 sm:ml-3 sm:w-auto sm:mt-3" />
+                                <x-form.button
+                                    class="inline-flex w-full justify-center bg-blue-500 hover:bg-red-500 sm:ml-3 sm:w-auto sm:mt-3">
+                                    Update</x-form.button>
                                 <x-button-link href="{{ URL::to('resume') }}"
                                     class="py-2 px-4 inline-flex w-full justify-center bg-white  ring-1 ring-inset ring-gray-300 sm:mt-3 sm:w-auto">
                                     Cancel</x-button-link>

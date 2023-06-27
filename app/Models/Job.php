@@ -28,4 +28,14 @@ class Job extends Model
     {
         return $this->hasManyThrough(Duties::class, Experience::class);
     }
+
+    /**
+     * Get all of the Vacancy for the Job
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function Vacancy()
+    {
+        return $this->hasMany(Vacancy::class);
+    }
 }

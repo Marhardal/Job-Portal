@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $with=['type', ];
+    protected $with=['type', 'organisation'];
 
      public function setPasswordAttribute($password)
      {
@@ -67,5 +67,15 @@ class User extends Authenticatable
     public function Resume()
     {
         return $this->belongsTo(Resume::class);
+    }
+
+    /**
+     * The Organisation that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function Organisation()
+    {
+        return $this->belongsToMany(Organisation::class, 'recruiters', 'user_id', 'organisation_id')->withPivot('organisation_id');
     }
 }
