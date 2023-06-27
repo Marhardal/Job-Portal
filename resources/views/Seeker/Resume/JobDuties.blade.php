@@ -1,4 +1,4 @@
-<x-Customer-Layouts>
+<x-Layouts>
     @auth
         <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
@@ -31,14 +31,7 @@
                                                 <x-form.error name="duty_id" /> --}}
 
                                             </div>
-                                            <div>
-                                                <div class="relative">
-                                                    <textarea name="duty_id" cols="30" rows="7" class="peer w-full border-2 rounded-md py-2 border-gray-300 focus:border-blue-600 px-2 focus:outline-none transition-colors placeholder-transparent focus:top-3 resize-none" placeholder="Enter duties which you were doing." id="duty_id" >{{ old('duty_id', '')  }}</textarea>
-                                                    {{-- <label for="duty_id" class="absolute left-0 -top-2 pl-2 text-gray-500 text-sm peer-placeholder-shown:text-base  peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3 peer-focus:text-gray-500 peer-focus:text-sm transition-all bg-transparent">Enter duties which you were doing.</label> --}}
-                                                    <x-form.error name="duty_id"/>
-                                                </div>
-
-                                            </div>
+                                           <x-form.tinymce-editor name="duty_id"></x-form.tinymce-editor>
 
                                             {{-- <x-form.textarea class="ckeditor" id="duty_id" name="editor"
                                             placeholder="Enter duties which you were doing."/> --}}
@@ -47,8 +40,8 @@
                                 </div>
                             </div>
                             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                <x-form.button value="Next"
-                                    class="inline-flex w-full justify-center bg-red-600 hover:bg-red-500 sm:mt-3 sm:ml-3 sm:w-auto" />
+                                <x-form.button
+                                    class="inline-flex w-full justify-center bg-red-600 hover:bg-red-500 sm:mt-3 sm:ml-3 sm:w-auto">Done</x-form.button>
                                 <x-button-link href="{{ URL::to('resume') }}"
                                     class="py-2 px-4 inline-flex w-full justify-center bg-white  ring-1 ring-inset ring-gray-300 sm:mt-3 sm:w-auto">
                                     Cancel</x-button-link>
@@ -59,7 +52,7 @@
             </div>
         </div>
     @endauth
-</x-Customer-Layouts>
+</x-Layouts>
 @section('scripts')
 
 @endsection

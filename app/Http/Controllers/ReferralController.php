@@ -40,8 +40,9 @@ class ReferralController extends Controller
             'city' => ['required'],
             'country' => ['required'],
         ]);
-
-        $values['resume_id'] = Resume::find(auth()->user()->id)->id;
+        foreach (Resume::find(auth()->user()) as $key => $value) {
+            $values['resume_id'] = $value->id;
+        }
         if (Referral::create($values)) {
             return redirect('resume');
             Alert::success('Success', 'Referral Created');

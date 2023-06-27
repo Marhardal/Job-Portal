@@ -8,4 +8,37 @@ use Illuminate\Database\Eloquent\Model;
 class Vacancy extends Model
 {
     use HasFactory;
+
+    protected $with=['organisation', 'job', 'arrangement'];
+
+    /**
+     * Get the Organisation that owns the Vacancy
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function Organisation()
+    {
+        return $this->belongsTo(Organisation::class);
+    }
+
+    /**
+     * Get the Job that owns the Vacancy
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function Job()
+    {
+        return $this->belongsTo(Job::class);
+    }
+
+    /**
+     * Get the Arrangement that owns the Vacancy
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function Arrangement()
+    {
+        return $this->belongsTo(Arrangement::class);
+    }
+
 }

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Duties;
 use Carbon\Carbon;
-use App\Models\Resume;
-use App\Models\Experience;
 use App\Models\Job;
+use App\Models\Duties;
+use App\Models\Resume;
+use Nnjeim\World\World;
+use App\Models\Experience;
 use App\Models\SeekerDuties;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Exists;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ExperienceController extends Controller
 {
@@ -27,25 +28,29 @@ class ExperienceController extends Controller
      */
     public function create()
     {
-        return view("seeker.resume.experience")->with('jobs', Job::all());
+        $cities = World::cities([
+            'filters' => ['country_id' => '131']
+        ]);
+        return view("seeker.resume.experience")->with(["countries" => World::Countries(), "city" => $cities, "jobs" => Job::all()]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        // dd(Resume::find(auth()->user()->id)->id);
         $values = $request->validate([
-            'start_date'=>['required', 'before_or_equal:'.Carbon::today()->subMonths(3)->format('Y-m')],
-            'leave_date'=>['required', 'date'],
-            'employer'=>['required', ],
-            'city'=>['required', 'string'],
-            'country'=>['required', 'string'],
-            'job_id'=>['required', Rule::exists('jobs', 'id')]
+            'start_date' => ['required', 'before_or_equal:' . Carbon::today()->subMonths(3)->format('Y-m')],
+            'leave_date' => ['required', 'date'],
+            'employer' => ['required',],
+            'city' => ['required', 'string'],
+            'country' => ['required', 'string'],
+            'job_id' => ['required', Rule::exists('jobs', 'id')]
         ]);
-        $values['resume_id'] = Resume::find(auth()->user()->id)->id;
-        $experience=Experience::create($values);
+        foreach (Resume::find(auth()->user()) as $key => $value) {
+            $values['resume_id'] = $value->id;
+        }
+        $experience = Experience::create($values);
         if ($experience) {
             session()->put('experience_id', $experience->id);
             return redirect('resume/jobduties');
@@ -67,14 +72,10 @@ class ExperienceController extends Controller
      */
     public function edit(Experience $experience)
     {
-        // if ($experience->duties->exists()) {
-        //     dd('exist');
-        // } else {
-        //     dd('No pivot');
-        // }
-
-        dd($experience->pivot);
-        return view('seeker.resume.editExperience')->with(['experience'=>$experience, 'jobs'=>Job::all()]);
+        $cities = World::states([
+            'filters' => ['country_id' => '131']
+        ]);
+        return view('seeker.resume.editExperience')->with(["experience" => $experience, "countries" => World::Countries(), "city" => $cities, "jobs" => Job::all()]);
     }
 
     /**
@@ -82,7 +83,22 @@ class ExperienceController extends Controller
      */
     public function update(Request $request, Experience $experience)
     {
-        //
+        $values = $request->validate([
+            'start_date' => ['required', 'before_or_equal:' . Carbon::today()->subMonths(3)->format('Y-m')],
+            'leave_date' => ['required', 'date'],
+            'employer' => ['required',],
+            'city' => ['required', 'string'],
+            'country' => ['required', 'string'],
+            'job_id' => ['required', Rule::exists('jobs', 'id')]
+        ]);
+
+        if ($experience->update($values)) {
+            return redirect('resume');
+            Alert::success('Success', 'Experience Updated');
+        }else {
+            return redirect()->back();
+            Alert::error("Failed", "Experience not Update.");
+        }
     }
 
     /**

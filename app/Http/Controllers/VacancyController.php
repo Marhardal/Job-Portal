@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Arrangement;
+use App\Models\Job;
 use App\Models\Vacancy;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Khsing\World\World;
+use Illuminate\Validation\Rule;
+use Nnjeim\World\World;
 
 class VacancyController extends Controller
 {
@@ -13,8 +17,7 @@ class VacancyController extends Controller
      */
     public function index()
     {
-        // dd(session('org_id'));
-        return view("seeker.jobs")->with(['jobs'=>Vacancy::latest()]);
+        return view("seeker.jobs")->with(['jobs' => Vacancy::latest()->get(), 'countries' => World::countries()]);
     }
 
     /**
@@ -22,7 +25,16 @@ class VacancyController extends Controller
      */
     public function create()
     {
-        dd(World::Continents());
+        $cities = World::cities([
+            'fields' => 'cities',
+            'filters' => ['country_id' => '131']
+        ]);
+        return view("recruiters.vacancy.create")->with([
+            'countries' => World::countries(['fields' => 'name, iso3']),
+            'arrangement' => Arrangement::get(),
+            'cities' => $cities,
+            'jobs' => Job::get()
+        ]);
     }
 
     /**
@@ -30,7 +42,21 @@ class VacancyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $values = $request->validate([
+            'country' => ['required'],
+            'city' => ['required'],
+            'job_id' => ['required', Rule::exists('jobs', 'id')],
+            'arrangement_id' => ['required', Rule::exists('arrangements', 'id')],
+            'description' => ['required', 'min:200'],
+            'deactivated_at' => ['required', 'date', 'after:' . Carbon::today()->addWeek()]
+        ]);
+        $org_id = 0;
+        foreach (auth()->user()->organisation as $key => $value) {
+            $org_id = $value->id;
+        }
+        $values['organisation_id'] = $org_id;
+        Vacancy::create($values);
+        return redirect('jobs');
     }
 
     /**
@@ -38,7 +64,7 @@ class VacancyController extends Controller
      */
     public function show(Vacancy $vacancy)
     {
-        //
+        return view('recruiters.vacancy.show')->with(['vacancy' => $vacancy]);
     }
 
     /**

@@ -15,7 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('company_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedInteger('arrangement_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('Description');
+            $table->unsignedInteger('organisation_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedInteger('job_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('country');
+            $table->string('city');
+            $table->string('description');
+            $table->date('deactivated_at');
             $table->timestamps();
         });
     }
