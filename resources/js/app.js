@@ -1,13 +1,20 @@
 import './bootstrap';
-import swal from 'sweetalert';
-import Quill from "quill";
-import jQuery from 'jquery'
+import jQuery from 'jquery';
+import Choices from 'choices.js';
+import Alpine from 'alpinejs';
+import swal from 'sweetalert2';
 
-window.$=jQuery;
+window.Alpine = Alpine;
+window.swal = swal; 
 
-import Alpine from 'alpinejs'
-window.Alpine = Alpine
-Alpine.start()
-// var editor = new Quill('#editor');
+window.choices=(Element)=>{
+    return new Choices(Element, {
+        maxItemCount: 8,
+        removeItemButton: true,
+    });
+}
+
+Alpine.start();
+
 
 

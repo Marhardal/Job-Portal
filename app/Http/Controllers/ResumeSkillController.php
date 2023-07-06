@@ -25,7 +25,7 @@ class ResumeSkillController extends Controller
      */
     public function create()
     {
-        return view('seeker.resume.createSkill')->with(['skills' => Skill::all()]);
+        return view('seeker.resume.skills.create')->with(['skills' => Skill::all()]);
     }
 
     /**
@@ -33,17 +33,22 @@ class ResumeSkillController extends Controller
      */
     public function store(Request $request)
     {
-        $values = $request->validate([
-            'skill_id[]' => ['required', Rule::exists('skills', 'id')]
-        ]);
-        foreach ($values as $key => $value) {
-            dd($value);
+        $id = 0;
+        foreach (Resume::find(auth()->user()) as $key => $value) {
+            $id = $value['id'];
         }
+        foreach ($request->skill_id as $key => $value) {
+            $resumeSkill = ResumeSkill::create([
+                'resume_id' => $id,
+                'skill_id' => $value
+            ]);
+        }
+
 
         // $values['resume_id'] = Resume::find(auth()->user()->id)->id;
         // if (ResumeSkill::create($values)) {
-        //     return redirect('resume');
-        //     Alert::success('Success', 'Skill Created');
+            return redirect('resume');
+            Alert::success('Success', 'Skill Created');
         // } else {
         //     return redirect()->back();
         //     Alert::error("Failed", "Skill not Created.");

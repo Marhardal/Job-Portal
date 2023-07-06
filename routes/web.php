@@ -9,9 +9,11 @@ use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ResumeSkillController;
+use App\Http\Controllers\TemplatesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VacancyDutiesController;
 use App\Http\Controllers\VacancyController;
+use App\Models\Education;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +60,8 @@ Route::middleware('can:seeker')->group(function ()
 {
     Route::get('resume', [ResumeController::class, 'index']);
 
+    Route::get('resume/show', [TemplatesController::class, 'show']);
+
     Route::get('resume/create', [ResumeController::class, 'create']);
 
     Route::get('resume/{resume:id}/edit', [ResumeController::class, 'edit']);
@@ -68,15 +72,19 @@ Route::middleware('can:seeker')->group(function ()
 
     Route::resource('resume/experience', ExperienceController::class)->except(['show', 'index']);
 
-    Route::get('resume/jobduties', [DutyExperienceController::class, 'create']);
+    Route::get('resume/experience/{resume:id}/show', [ExperienceController::class, 'show']);
 
-    Route::post('resume/jobduties', [DutyExperienceController::class, 'store']);
+    Route::resource('resume/duties', ExperienceController::class)->only(['create', 'store']);
 
     Route::resource('resume/skill', ResumeSkillController::class)->only(['create', 'store', 'destroy']);
 
     Route::resource('resume/referral', ReferralController::class)->except(['show', 'index']);
 
+    Route::get('resume/referral/{resume:id}/show', [ReferralController::class, 'show']);
+
     Route::resource('resume/education', EducationController::class)->except(['show', 'index']);
+
+    Route::get('resume/education/{resume:id}/show', [EducationController::class, 'show']);
 
     Route::get('resume/download', [DocumentsController::class, 'resume']);
 });

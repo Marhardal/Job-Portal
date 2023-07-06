@@ -64,7 +64,7 @@ class ResumeController extends Controller
      */
     public function show(Resume $resume)
     {
-        //
+        return view('seeker.resume.referral.show')->with(['resumes'=>$resume->referral]);
     }
 
     /**
