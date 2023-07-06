@@ -25,7 +25,7 @@ class EducationController extends Controller
      */
     public function create()
     {
-        return view('seeker.resume.createEducation')->with(['qualification' => Qualification::all()]);
+        return view('seeker.resume.education.create')->with(['qualification' => Qualification::all()]);
     }
 
     /**
@@ -40,7 +40,9 @@ class EducationController extends Controller
             'graduation_date' => ['required'],
         ]);
 
-        $values['resume_id'] = Resume::find(auth()->user()->id)->id;
+        foreach (Resume::find(auth()->user()) as $key => $value) {
+            $values['resume_id'] = $value->id;
+        }
         if (Education::create($values)) {
             return redirect('resume');
             Alert::success('Success', 'Referral Added');
@@ -53,9 +55,10 @@ class EducationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Education $education)
+    public function show(Resume $resume)
     {
-        //
+        // dd($resume->qualification);
+        return view('seeker.resume.education.show')->with(['resumes'=>$resume->qualification]);
     }
 
     /**
@@ -63,7 +66,7 @@ class EducationController extends Controller
      */
     public function edit(Education $education)
     {
-        return view('seeker.resume.editEducation')->with(['education' => $education, 'qualification'=>Qualification::all()]);
+        return view('seeker.resume.education.edit')->with(['education' => $education, 'qualification'=>Qualification::all()]);
     }
 
     /**
