@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('senders', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('address');
-            $table->string('city');
-            $table->string('country');
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('senders');
+        Schema::dropIfExists('addresses');
     }
 };
