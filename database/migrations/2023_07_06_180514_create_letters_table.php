@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('letters', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->unsignedInteger('receiver_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->unsignedInteger('sender_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedInteger('address_type_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->date('date');
             $table->string('salutation');
             $table->string('introduction');
