@@ -31,7 +31,7 @@ class ExperienceController extends Controller
         $cities = World::cities([
             'filters' => ['country_id' => '131']
         ]);
-        return view("seeker.resume.experience")->with(["countries" => World::Countries(), "city" => $cities, "jobs" => Job::all()]);
+        return view("seeker.resume.duties.create")->with(["countries" => World::Countries(), "city" => $cities, "jobs" => Job::all()]);
     }
 
     /**
@@ -62,9 +62,9 @@ class ExperienceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Experience $experience)
+    public function show(Resume $resume)
     {
-        //
+        return view('seeker.resume.experience.show')->with(['resumes'=>$resume->experience]);
     }
 
     /**
@@ -75,7 +75,7 @@ class ExperienceController extends Controller
         $cities = World::states([
             'filters' => ['country_id' => '131']
         ]);
-        return view('seeker.resume.editExperience')->with(["experience" => $experience, "countries" => World::Countries(), "city" => $cities, "jobs" => Job::all()]);
+        return view('seeker.resume.experience.edit')->with(["experience" => $experience, "countries" => World::Countries(), "city" => $cities, "jobs" => Job::all()]);
     }
 
     /**

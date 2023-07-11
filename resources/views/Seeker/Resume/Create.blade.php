@@ -49,6 +49,8 @@
                                         </div>
                                         <x-form.error name="country" />
                                     </div>
+                                    {{-- <div id="editor"></div> --}}
+                                    {{-- <textarea name="summary" class="quill-editor" cols="30" rows="10"></textarea> --}}
                                     <x-form.tinymce-editor name="summary" placeholder="Enter your professional summary"></x-form.tinymce-editor>
                                     {{-- <x-form.textarea name="summary" id="" placeholder="Enter your professional summary." /> --}}
                                 </div>

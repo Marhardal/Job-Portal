@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedInteger('address_type_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('postal_code');
+            $table->string('city');
+            $table->string('country');
+            $table->string('addressing');
             $table->timestamps();
         });
     }

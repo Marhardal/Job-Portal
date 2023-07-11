@@ -9,15 +9,17 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Nnjeim\World\World;
+use Nnjeim\World\WorldHelper;
 
 class VacancyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(WorldHelper $world)
     {
-        return view("seeker.jobs")->with(['jobs' => Vacancy::latest()->get(), 'countries' => World::countries()]);
+        // dd($world->countries(['fields'=>'iso2', 'filters'=>['name'=>$vacancy->country]])->data);
+        return view("seeker.jobs")->with(['jobs' => Vacancy::latest()->get(), 'world' => $world]);
     }
 
     /**

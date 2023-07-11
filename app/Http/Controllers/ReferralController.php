@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resume;
+use Nnjeim\World\World;
 use App\Models\Referral;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -22,7 +23,11 @@ class ReferralController extends Controller
      */
     public function create()
     {
-        return view('seeker.resume.createReferral');
+        $cities = World::cities([
+            'fields' => 'cities',
+            'filters' => ['country_id' => '131']
+        ]);
+        return view('seeker.resume.referral.create', ["countries" => World::Countries(), "cities" => $cities]);
     }
 
     /**
@@ -44,7 +49,7 @@ class ReferralController extends Controller
             $values['resume_id'] = $value->id;
         }
         if (Referral::create($values)) {
-            return redirect('resume');
+            return redirect('resume/referral/'.$values['resume_id'].'/show');
             Alert::success('Success', 'Referral Created');
         }else {
             return redirect()->back();
@@ -55,9 +60,9 @@ class ReferralController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Referral $referral)
+    public function show(Resume $resume)
     {
-        //
+        return view('seeker.resume.referral.show')->with(['resumes'=>$resume->referral]);
     }
 
     /**

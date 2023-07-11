@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\AddressType;
 use App\Models\Arrangement;
 use App\Models\SeekerDuties;
 use App\Models\Duties;
@@ -25,42 +26,46 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        SeekerDuties::factory(5)->create();
-        Skill::factory(5)->create();
-        Referral::factory(5)->create();
-        Education::factory(5)->create();
+        // SeekerDuties::factory(5)->create();
+        // Skill::factory(5)->create();
+        // Referral::factory(5)->create();
+        // Education::factory(5)->create();
 
-        Job::factory(50)->create();
-        Duties::factory(100)->create();
-        Skill::factory(30)->create();
-        Qualification::factory(20)->create();
+        // Job::factory(50)->create();
+        // Duties::factory(100)->create();
+        // Skill::factory(30)->create();
+        // Qualification::factory(20)->create();
 
-        Type::create([
-            'role' => 'Seeker',
-        ]);
+        // Type::create([
+        //     'role' => 'Seeker',
+        // ]);
 
-        Type::create([
-            'role' => 'Admin',
-        ]);
+        // Type::create([
+        //     'role' => 'Admin',
+        // ]);
 
-        Type::create([
-            'role' => 'recruiter',
-        ]);
+        // Type::create([
+        //     'role' => 'recruiter',
+        // ]);
 
-        Arrangement::create([
-            'type' => 'Full-Time',
-        ]);
+        // Arrangement::create([
+        //     'type' => 'Full-Time',
+        // ]);
 
-        Arrangement::create([
-            'type' => 'Part-Time',
-        ]);
+        // Arrangement::create([
+        //     'type' => 'Part-Time',
+        // ]);
 
-        Arrangement::create([
-            'type' => 'Temporary',
-        ]);
+        // Arrangement::create([
+        //     'type' => 'Temporary',
+        // ]);
 
-        Arrangement::create([
-            'type' => 'Internship',
+        // Arrangement::create([
+        //     'type' => 'Internship',
+        // ]);
+
+        $this->call([
+            AddressTypeSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
