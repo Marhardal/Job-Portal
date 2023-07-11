@@ -24,15 +24,11 @@
                                                 <a href="" @click.prevent="tab='letter'"
                                                     class="bg-none hover:bg-none"
                                                     :class="{
-                                                        'elSwitch bg-white shadow text-gray-800 flex items-center justify-center w-1/2 rounded h-8 transition-all top-[4px] absolute': tab ==
+                                                        'elSwitch bg-white shadow text-gray-800 flex items-center justify-center w-1/2 rounded h-8 transition-all top-[4px] absolute right-1': tab ==
                                                             'letter'
                                                     }">Letter
                                                 </a>
                                             </div>
-                                            {{-- <span
-                                                class="elSwitch bg-white shadow text-gray-800 flex items-center justify-center w-1/2 rounded h-8 transition-all top-[4px] absolute left-1 ">
-                                                Text
-                                            </span> --}}
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-2 gap-5" x-show="tab==='resume'">
@@ -49,7 +45,7 @@
                                                 </div>
                                                 <div class="col-span-2 flex py-2">
                                                     <div class="mx-auto flex">
-                                                        <x-button-link href="{{ URL::to('resume/download') }}"
+                                                        <x-button-link href="{{ URL::to('download/resume') }}"
                                                             class="p-2 bg-blue-600 peer">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"
                                                                 class="fill-white w-6 h-6">
@@ -113,7 +109,7 @@
                                                 </div>
                                                 <div class="col-span-2 flex py-2">
                                                     <div class="mx-auto flex">
-                                                        <x-button-link href="{{ URL::to('resume/download') }}"
+                                                        <x-button-link href="{{ URL::to('download/letter') }}"
                                                             class="p-2 bg-blue-600 peer">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"
                                                                 class="fill-white w-6 h-6">
@@ -136,7 +132,7 @@
                                             <div class="grid grid-cols-2 my-2">
                                                 <div class="col-span-2">
                                                     <div class="text-base text-white text-center leading-none">
-                                                        How would you like to export your resume.
+                                                        How would you like to export your letter.
                                                     </div>
                                                 </div>
                                                 <div class="col-span-2 flex py-2">
@@ -376,7 +372,7 @@
                                                     <a href="" @click.prevent="tab2='section'"
                                                         class="bg-none w-1/2 h-8 rounded"
                                                         :class="{
-                                                            'elSwitch bg-white shadow text-gray-800 flex items-center justify-center w-1/2 rounded h-8 transition-all top-[4px] absolute': tab2 ==
+                                                            'elSwitch bg-white shadow text-gray-800 flex items-center justify-center w-1/2 rounded h-8 transition-all top-[4px] absolute right-1': tab2 ==
                                                                 'section'
                                                         }">Section
                                                     </a>
@@ -385,13 +381,14 @@
                                         </div>
                                         <div class="grid grid-cols-2 gap-0.5" x-show="tab2==='section'">
                                             <div class="col-span-1 text-center m-1">
-                                                <x-button-link href="{{ URL::to('resume') }}"
+                                                <x-button-link href="{{ URL::to('letter/address/') }}"
                                                     class="bg-blue-500 hover:bg-blue-400 rounded flex">
                                                     <div class="mx-auto p-2">
                                                         <div class="">
-                                                            <span class="text-base text-white ">My Address</span>
+                                                            <span class="text-base text-white ">Address</span>
                                                         </div>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="fill-white h-14 w-14 mx-auto">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"
+                                                            class="fill-white h-14 w-14 mx-auto">
                                                             <path
                                                                 d="M25 2C16.179688 2 9 9.179688 9 18C9 30.078125 23.628906 46.945313 24.25 47.65625C24.441406 47.875 24.710938 48 25 48C25.289063 48 25.558594 47.871094 25.75 47.65625C26.371094 46.945313 41 30.152344 41 18C41 9.179688 33.820313 2 25 2 Z M 25 11.84375L33 16.65625L32 18.34375L32 26L18 26L18 18.34375L17 16.65625 Z M 25 14.15625L20 17.15625L20 24L23 24L23 19L27 19L27 24L30 24L30 17.15625Z" />
                                                         </svg>
@@ -414,8 +411,7 @@
                                                 </x-button-link>
                                             </div>
                                             <div class="col-span-1 text-center m-1">
-                                                <x-button-link
-                                                    href="{{ URL::to('resume/experience/' . $resume->id . '/show') }}"
+                                                <x-button-link href="{{ URL::to('letter/create') }}"
                                                     class="bg-blue-500 hover:bg-blue-400 rounded flex">
                                                     <div class="mx-auto p-2">
                                                         <div class="">
@@ -536,9 +532,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-span-2 bg-gray-100 rounded-lg">
-                                <iframe src="{{ url('resume/show') }}" frameborder="0" class="w-full h-full">
-                                </iframe>
+                            <div class="col-span-2 bg-gray-100 rounded-lg" x-show="tab==='resume'">
+                                <iframe src="{{ URL::to('resume/show') }}" frameborder="0" class="w-full h-full"></iframe>
+                            </div>
+                            <div class="col-span-2 bg-gray-100 rounded-lg" x-show="tab==='letter'">
+                                <iframe src="{{ url('letter/show') }}" frameborder="0" class="w-full h-full"></iframe>
                             </div>
                         </div>
                     @endforeach

@@ -17,6 +17,7 @@
         "alpinejs": "^3.12.3",
         "choices.js": "^10.2.0",
         "jquery": "^3.7.0",
+        "puppeteer": "^20.8.0",
         "sweetalert2": "^11.7.12",
         "tinymce": "^6.5.1"
     }

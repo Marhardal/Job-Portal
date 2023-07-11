@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $with=['type', 'organisation'];
+    protected $with=['type', 'organisation', 'address'];
 
      public function setPasswordAttribute($password)
      {
@@ -70,6 +70,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the Letter associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function Letter()
+    {
+        return $this->hasOne(User::class);
+    }
+
+    /**
      * The Organisation that belong to the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -77,5 +87,15 @@ class User extends Authenticatable
     public function Organisation()
     {
         return $this->belongsToMany(Organisation::class, 'recruiters', 'user_id', 'organisation_id')->withPivot('organisation_id');
+    }
+
+    /**
+     * Get the Address associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function Address()
+    {
+        return $this->hasOne(Address::class);
     }
 }

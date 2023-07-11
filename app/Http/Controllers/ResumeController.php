@@ -19,6 +19,7 @@ class ResumeController extends Controller
     {
         // dd(Resume::find(auth()->user())->get());
         return view('seeker.resume')->with(['resumes' => Resume::find(auth()->user())]);
+        
     }
 
     /**

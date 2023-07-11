@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use Nnjeim\World\World;
+use App\Models\AddressType;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AddressController extends Controller
 {
@@ -12,7 +15,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        return view('seeker.letter.address.show')->with(['addresses' => Address::find(auth()->user())]);
     }
 
     /**
@@ -20,7 +23,11 @@ class AddressController extends Controller
      */
     public function create()
     {
-        //
+        $cities = World::cities([
+            'fields' => 'cities',
+            'filters' => ['country_id' => '131']
+        ]);
+        return view('seeker.letter.address.create')->with(["countries" => World::Countries(), "district" => $cities, "type" => AddressType::all()]);
     }
 
     /**
@@ -28,7 +35,19 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $values = $request->validate([
+            'postal_code' => ['required'],
+            'addressing' => ['nullable'],
+            'address_type_id' => ['required', Rule::exists('address_types', 'id')],
+            'city' => ['required'],
+            'country' => ['required'],
+        ]);
+        $values['user_id'] = auth()->user()->id;
+        if (Address::create($values)) {
+            return redirect('letter/address/')->with('success', 'Address Added Successfully');
+        }else {
+            return redirect()-back()->with('success', 'Address Added Successfully');
+        }
     }
 
     /**
@@ -44,7 +63,11 @@ class AddressController extends Controller
      */
     public function edit(Address $address)
     {
-        //
+        $cities = World::cities([
+            'fields' => 'cities',
+            'filters' => ['country_id' => '131']
+        ]);
+        return view('seeker.letter.address.update')->with(["countries" => World::Countries(), "district" => $cities, "type" => AddressType::all(), "address"=>$address]);
     }
 
     /**
@@ -52,7 +75,19 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address)
     {
-        //
+        $values = $request->validate([
+            'postal_code' => ['required'],
+            'addressing' => ['nullable'],
+            'address_type_id' => ['required', Rule::exists('address_types', 'id')],
+            'city' => ['required'],
+            'country' => ['required'],
+        ]);
+        $values['user_id'] = auth()->user()->id;
+        if ($address->update($values)) {
+            return redirect('letter/address/')->with('success', 'Address Updated Successfully');
+        }else {
+            return redirect()-back()->with('success', 'Address Updated Successfully');
+        }
     }
 
     /**
@@ -60,6 +95,7 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
-        //
+        $address->delete();
+        return redirect()-back()->with('success', 'Address Updated Successfully');
     }
 }

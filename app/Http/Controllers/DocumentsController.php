@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\Letter;
 use App\Models\Resume;
-// use Dompdf;
-use Barryvdh\DomPDF\PDF as PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\Writer\PDF\DomPDF as PDFDomPDF;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class DocumentsController extends Controller
@@ -27,9 +25,18 @@ class DocumentsController extends Controller
         //     Alert::error('Error', 'Failed to create your Document');
         // }
         // return response()->download(storage_path(auth()->user()->first_name . " " . auth()->user()->surname . "Resume.docx"));
-        $pdf = app('dompdf.wrapper');
+        // $pdf = app('dompdf.wrapper');
+        // $pdf = app('snappy.pdf.wrapper');
         $resumes=Resume::find(auth()->user());
-        $pdf->loadView('templates.template1', compact('resumes'));
+        $pdf = PDF::loadView('templates.resume.template1', compact('resumes'));
         return $pdf->download(auth()->user()->first_name." ".auth()->user()->surname." Resume.pdf");
+    }
+
+    public function letter()
+    {
+        // $pdf = app('dompdf.wrapper');
+        $letters=Letter::find(auth()->user());
+        $pdf=PDF::loadView('templates.letter.template1', compact('letters'));
+        return $pdf->download(auth()->user()->first_name." ".auth()->user()->surname." Cover Letter.pdf");
     }
 }

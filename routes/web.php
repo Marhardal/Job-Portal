@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\DutyexperienceController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\LetterController;
 use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\ResumeController;
@@ -86,14 +88,20 @@ Route::middleware('can:seeker')->group(function ()
 
     Route::get('resume/education/{resume:id}/show', [EducationController::class, 'show']);
 
-    Route::get('resume/download', [DocumentsController::class, 'resume']);
+    Route::get('download/resume', [DocumentsController::class, 'resume']);
+
+    Route::resource('letter/address', AddressController::class);
+
+    Route::resource('letter', LetterController::class);
+
+    Route::get('download/letter', [DocumentsController::class, 'letter']);
 });
 
 Route::middleware(['can:recruiter'])->group(function () {
 
-    Route::resource('vacancy', VacancyController::class)->except(['index', 'show'])->except(['index', 'show']);
+    Route::resource('vacancy', VacancyController::class)->except(['index', 'show']);
 
-    Route::resource('vacancies/duties', VacancyDutiesController::class);
+    // Route::resource('vacancies/duties', VacancyDutiesController::class);
 });
 
 Route::resource('jobs', VacancyController::class)->only(['index', 'show']);

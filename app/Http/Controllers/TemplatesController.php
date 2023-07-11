@@ -38,7 +38,7 @@ class TemplatesController extends Controller
     public function show(Resume $resume)
     {
         $resume=$resume->find(auth()->user());
-        return view('templates.template1')->with(['resumes'=>$resume]);
+        return view('templates.resume.template1')->with(['resumes'=>$resume]);
     }
 
     /**

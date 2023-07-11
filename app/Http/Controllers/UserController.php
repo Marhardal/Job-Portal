@@ -112,6 +112,7 @@ class UserController extends Controller
         ]);
 
         if (auth()->attempt($values)) {
+            Alert::success('success', 'Logged in successfully');
             return redirect('resume')->with(['success'=>'Logged-in Successfully.']);
         }
         throw ValidationException::withMessages(['username' => 'Your provided credentials could not be verified.']);

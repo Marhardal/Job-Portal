@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\AddressType;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class AddressTypeSeeder extends Seeder
 {
@@ -12,6 +13,12 @@ class AddressTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        AddressType::create([
+            'type'=>'Personal Address'
+        ]);
+
+        AddressType::create([
+            'type'=>'Business Address'
+        ]);
     }
 }

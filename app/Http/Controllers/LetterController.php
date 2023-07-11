@@ -20,7 +20,7 @@ class LetterController extends Controller
      */
     public function create()
     {
-        //
+        return view('seeker.letter.this.create')->with(['addresses' => Letter::find(auth()->user())]);
     }
 
     /**
@@ -28,15 +28,30 @@ class LetterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $values = $request->validate([
+            "salutation" => ['required', "min:3"],
+            "title" => ['required', "min:10"],
+            "closing_salutation" => ['required', "min:10"],
+            "introduction" => ['required', "min:100"],
+            "body" => ['required', "min:100"],
+            "conclusion" => ['required', "min:100"],
+        ]);
+        $values['user_id'] = auth()->user()->id;
+        if (Letter::create($values)) {
+            return redirect('resume')->with('success', 'Cover Letter Created Successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Cover Letter Not Created.');
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Letter $letter)
+    public function show()
     {
-        //
+        $letter = Letter::find(auth()->user());
+        // dd($letter);
+        return view('templates.letter.template1')->with(['letters' => $letter]);
     }
 
     /**

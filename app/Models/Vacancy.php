@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Nnjeim\World\WorldHelper;
 
 class Vacancy extends Model
 {
     use HasFactory;
 
+    protected $world;
     protected $with=['organisation', 'job', 'arrangement'];
 
     /**
