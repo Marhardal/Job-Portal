@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\AddressType;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class AddressTypeSeeder extends Seeder
 {

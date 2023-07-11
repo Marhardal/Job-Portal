@@ -28,6 +28,4 @@ class Address extends Model
     {
         return $this->belongsTo(AddressType::class);
     }
-
-    
 }
